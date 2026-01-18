@@ -425,7 +425,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+              className="mt-12 flex flex-col items-center gap-2"
             >
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Scroll Down</span>
               <motion.div
