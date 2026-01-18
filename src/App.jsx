@@ -165,7 +165,7 @@ const Navbar = ({ theme, toggleTheme }) => {
           </a>
           {/* Mobile Logo Fallback */}
           <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="md:hidden text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
-            Dev<span className="text-primary">Portfolio</span>.
+            Pratik<span className="text-primary">Portfolio</span>.
           </a>
         </div>
 
@@ -202,15 +202,19 @@ const Navbar = ({ theme, toggleTheme }) => {
             className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
             aria-label="Toggle Theme"
           >
-            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+            {theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}
           </button>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden flex items-center ml-4">
-          <button className="text-slate-900 dark:text-white" onClick={() => setIsOpen(!isOpen)}>
-            {isOpen ? <X /> : <Menu />}
-          </button>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center">
+            <button 
+              className="text-slate-900 dark:text-white hover:text-primary transition-colors p-1" 
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
@@ -228,6 +232,16 @@ const Navbar = ({ theme, toggleTheme }) => {
                 {link.name}
               </a>
             ))}
+            <div className="flex flex-col gap-4 pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
+              <a href="/pratik's Resume.pdf" download onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 px-5 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm">
+                <Download size={16} />
+                <span>Resume</span>
+              </a>
+              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm shadow-lg shadow-slate-900/20 dark:shadow-white/20">
+                <Eye size={16} />
+                <span>View Projects</span>
+              </a>
+            </div>
           </div>
         </div>
       )}
@@ -348,7 +362,7 @@ const Hero = () => {
   const line2 = "scalable solutions that matter.".split(" ");
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center pt-20 pb-32 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-dark to-dark -z-10" />
       <ParticleBackground />
