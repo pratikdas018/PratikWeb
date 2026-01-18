@@ -362,7 +362,7 @@ const Hero = () => {
   const line2 = "scalable solutions that matter.".split(" ");
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 pb-32 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center pt-20 pb-10 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-dark to-dark -z-10" />
       <ParticleBackground />
@@ -425,7 +425,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 10 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="mt-12 flex flex-col items-center gap-2"
+              className="mt-16 flex flex-col items-center gap-2"
             >
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-widest">Scroll Down</span>
               <motion.div
@@ -444,7 +444,7 @@ const Hero = () => {
 
 const About = () => {
   return (
-    <section id="about" className="py-12 bg-white dark:bg-dark transition-colors">
+    <section id="about" className="py-10 bg-white dark:bg-dark transition-colors">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div 
           initial="hidden"
