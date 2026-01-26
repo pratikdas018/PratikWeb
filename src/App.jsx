@@ -59,6 +59,14 @@ const PROJECTS = [
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop"
   },
   {
+    title: "CollabTrack",
+    description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+    link: "https://collab-track.vercel.app/",
+    github: "https://github.com/pratikdas018/CollabTrack",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
     title: "Vingo Real-time Food-delivery-App",
     description: "A full-stack food delivery platform with real-time tracking, restaurant listings, and a responsive UI. Built with React.js, Node.js, Express, and MongoDB.",
     tech: ["React", "Express", "Node.js", "Socket.io", "JWT", "MongoDB"],
