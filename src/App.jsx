@@ -43,6 +43,22 @@ const SKILLS = {
 
 const PROJECTS = [
   {
+    title: "CineCircle - Movie Gossip & Social Platform",
+    description: "A social platform for movie enthusiasts to post reviews, comment on films, and stay updated with movie gossip. Features include real-time chat, friend management, and a social feed to track friends' activities.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+    link: "https://cine-circle-ten.vercel.app/",
+    github: "https://github.com/pratikdas018/CineCircle",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop"
+  },
+   {
+    title: "CollabTrack",
+    description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+    link: "https://collab-track.vercel.app/",
+    github: "https://github.com/pratikdas018/CollabTrack",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+  },
+  {
     title: "TalkSy - Real-time Chat Application",
     description: "Designed and developed a full-stack real-time chat application featuring WebSocket-based communication, secure authentication with JWT and Google OAuth, multimedia messaging, scalable chat rooms, user presence indicators, and real-time typing status.",
     tech: ["React", "Node.js", "Socket.io", "MongoDB"],
@@ -57,14 +73,6 @@ const PROJECTS = [
     link: "https://codelms-net.vercel.app/",
     github: "https://github.com/pratikdas018/LMS",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop"
-  },
-  {
-    title: "CollabTrack",
-    description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
-    link: "https://collab-track.vercel.app/",
-    github: "https://github.com/pratikdas018/CollabTrack",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
   },
   {
     title: "Vingo Real-time Food-delivery-App",
@@ -957,6 +965,29 @@ function App() {
     };
 
     trackVisitor();
+  }, []);
+
+  // SEO: Inject Structured Data (JSON-LD)
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.innerHTML = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Pratik Das",
+      "alternateName": "Pratik Das Sonu",
+      "url": window.location.origin,
+      "jobTitle": "Full Stack Developer",
+      "description": "Full Stack Developer specializing in MERN stack and Computer Science Engineering.",
+      "sameAs": [
+        "https://github.com/pratikdas018",
+        "https://www.linkedin.com/in/pratik-das-sonu-7201a328b/"
+      ]
+    });
+    document.head.appendChild(script);
+    return () => {
+      if (document.head.contains(script)) document.head.removeChild(script);
+    };
   }, []);
 
   const [showScrollTop, setShowScrollTop] = useState(false);

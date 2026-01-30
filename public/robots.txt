@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Replace the URL below with your actual live portfolio URL
+Sitemap: https://pratik-web.vercel.app/sitemap.xml
