@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -19,6 +19,7 @@ import {
   Moon,
   Download,
   Eye,
+  Search,
   CheckCircle,
   AlertCircle,
   Loader2
@@ -28,18 +29,40 @@ import {
 
 const NAV_LINKS = [
   { name: 'About', href: '#about' },
-  { name: 'Skills', href: '#skills' },
   { name: 'Experience', href: '#experience' },
+  { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'Education', href: '#education' },
   { name: 'Contact', href: '#contact' },
 ];
 
 const SKILLS = {
-  Frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-  Backend: ["Node.js", "Express", "Python", "Go", "GraphQL"],
-  Database: ["PostgreSQL", "MongoDB", "Redis", "Prisma"],
-  Tools: ["Docker", "AWS", "Git", "CI/CD", "Figma"]
+  "Programming & Frontend": ["C", "JavaScript (ES6+)", "TypeScript (Basic)", "React.js", "HTML5", "CSS3"],
+  "Backend & APIs": ["Node.js", "Express.js", "REST API", "Auth Workflows", "API Debugging"],
+  "Databases": ["MongoDB", "SQL"],
+  "Tools & Platforms": ["Git", "GitHub", "Postman", "VS Code", "Firebase", "Vercel", "Expo"]
 };
+
+const EDUCATION = [
+  {
+    degree: "B.Tech in CSE",
+    institute: "Greater Kolkata College of Engineering and Management",
+    score: "CGPA: 7.54/10",
+    duration: "2022 - 2026"
+  },
+  {
+    degree: "WBCHSE (Higher Secondary)",
+    institute: "Shyamnagar Sri Ramkrishna Vidyamandir",
+    score: "66.20/100",
+    duration: "2019 - 2021"
+  },
+  {
+    degree: "WBBSE (Secondary)",
+    institute: "Shyamnagar Sri Ramkrishna Vidyamandir",
+    score: "52.2/100",
+    duration: "2018 - 2019"
+  }
+];
 
 const PROJECTS = [
   {
@@ -48,7 +71,17 @@ const PROJECTS = [
     tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
     link: "https://cine-circle-ten.vercel.app/",
     github: "https://github.com/pratikdas018/CineCircle",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Movie communities needed one place for reviews, social updates, and instant discussion.",
+      approach: "Developed a MERN social platform with live features powered by Socket.io.",
+      impact: "Created a more engaging experience by combining feed interactions with real-time chat.",
+      highlights: [
+        "Real-time chat and activity updates",
+        "Review posting and comment threads",
+        "Responsive social feed experience"
+      ]
+    }
   },
   {
     title: "FoodieFly Real-time Food-delivery-App",
@@ -56,7 +89,17 @@ const PROJECTS = [
     tech: ["React", "Express", "Node.js", "Socket.io", "JWT", "MongoDB"],
     link: "https://pratik-foodie-fly.vercel.app/",
     github: "https://github.com/pratikdas018/FoodieFly",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Users needed reliable order updates and a simple mobile-first ordering journey.",
+      approach: "Built a full-stack ordering flow with live status changes and secure authentication.",
+      impact: "Improved order confidence and reduced friction from menu browsing to checkout.",
+      highlights: [
+        "Live order tracking updates",
+        "JWT-based auth and protected flows",
+        "Restaurant browsing with cart checkout"
+      ]
+    }
   },
   {
     title: "CollabTrack",
@@ -64,7 +107,17 @@ const PROJECTS = [
     tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
     link: "https://collab-track.vercel.app/",
     github: "https://github.com/pratikdas018/CollabTrack",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Student teams lacked transparency around ownership, deadlines, and contribution quality.",
+      approach: "Built collaboration dashboards with task tracking and real-time project state updates.",
+      impact: "Helped teams coordinate faster with clearer accountability and progress visibility.",
+      highlights: [
+        "Real-time team activity sync",
+        "Task and contribution tracking",
+        "Collaboration-focused dashboard UX"
+      ]
+    }
   },
   {
     title: "TalkSy - Real-time Chat Application",
@@ -72,7 +125,17 @@ const PROJECTS = [
     tech: ["React", "Node.js", "Socket.io", "MongoDB"],
     link: "https://realtimetalk-frontend.onrender.com/",
     github: "https://github.com/pratikdas018/RealTimeTalk",
-    image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=2274&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=2274&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Messaging needed low latency, room-based scaling, and secure multi-provider login.",
+      approach: "Implemented Socket.io chat architecture with JWT and Google OAuth authentication.",
+      impact: "Delivered responsive communication with reliable identity and presence signals.",
+      highlights: [
+        "Typing status and online presence",
+        "Room-based scalable chat model",
+        "Secure auth via JWT and OAuth"
+      ]
+    }
   },
   {
     title: "LMS – Learning Management System",
@@ -80,7 +143,17 @@ const PROJECTS = [
     tech: ["React", "Node.js", "Express", "MongoDB", "JWT"],
     link: "https://codelms-net.vercel.app/",
     github: "https://github.com/pratikdas018/LMS",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Academic operations needed role-based access and trackable learning outcomes.",
+      approach: "Built role-specific modules for tasks, progress, and secure learning workflows.",
+      impact: "Improved teaching and monitoring efficiency with clear student progress data.",
+      highlights: [
+        "Role-based student and admin experiences",
+        "Task assignment and progress tracking",
+        "Secure authentication and API design"
+      ]
+    }
   },
   {
     title: "TalkNex - AI Voice Assistant",
@@ -88,7 +161,17 @@ const PROJECTS = [
     tech: ["React", "Web Speech API", "JavaScript", "AI Logic"],
     link: "#",
     github: "https://github.com/pratikdas018/talkNex",
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2340&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2340&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Users wanted a browser-based assistant with natural voice-driven interaction.",
+      approach: "Integrated speech recognition with configurable assistant settings and commands.",
+      impact: "Enabled hands-free interaction in a lightweight, front-end focused application.",
+      highlights: [
+        "Voice command processing via Web Speech API",
+        "Custom assistant profile configuration",
+        "Extensible command interpretation logic"
+      ]
+    }
   },
   {
     title: "Resume Shortlister (ATS Skill Match Analyzer)",
@@ -96,7 +179,17 @@ const PROJECTS = [
     tech: ["React", "JavaScript", "Text Analysis", "ATS Logic"],
     link: "#",
     github: "https://github.com/pratikdas018/resume-shortlister",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2340&auto=format&fit=crop"
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2340&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Applicants needed fast feedback on resume fit against job descriptions.",
+      approach: "Built a text-analysis tool that calculates match score and skills gap.",
+      impact: "Provided actionable recommendations for stronger application readiness.",
+      highlights: [
+        "Exact match scoring between resume and JD",
+        "Missing and matched skill breakdown",
+        "Simple UI for quick resume evaluation"
+      ]
+    }
   }
 ];
 
@@ -512,10 +605,10 @@ const About = () => {
 
 const Skills = () => {
   const iconMap = {
-    Frontend: <Layout className="w-6 h-6 mb-2 text-primary" />,
-    Backend: <Server className="w-6 h-6 mb-2 text-primary" />,
-    Database: <Database className="w-6 h-6 mb-2 text-primary" />,
-    Tools: <Code2 className="w-6 h-6 mb-2 text-primary" />
+    "Programming & Frontend": <Layout className="w-6 h-6 mb-2 text-primary" />,
+    "Backend & APIs": <Server className="w-6 h-6 mb-2 text-primary" />,
+    "Databases": <Database className="w-6 h-6 mb-2 text-primary" />,
+    "Tools & Platforms": <Code2 className="w-6 h-6 mb-2 text-primary" />
   };
 
   return (
@@ -529,9 +622,9 @@ const Skills = () => {
           className="mb-16"
         >
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2 transition-colors">
-            Tech Stack
+            Skills
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 transition-colors">Technologies I work with on a daily basis.</p>
+          <p className="text-slate-600 dark:text-slate-400 transition-colors">Programming, frontend, backend, database, and tooling skills I use across projects.</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -562,7 +655,126 @@ const Skills = () => {
   );
 };
 
-const ProjectCard = ({ project, index }) => {
+const ProjectCaseStudyModal = ({ project, onClose }) => {
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onClose]);
+
+  const caseStudy = project.caseStudy || {};
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+      className="fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm p-4 md:p-8 overflow-y-auto"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 24, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 16, scale: 0.98 }}
+        onClick={(e) => e.stopPropagation()}
+        className="max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl overflow-hidden"
+      >
+        <div className="p-6 md:p-8 border-b border-slate-200 dark:border-slate-700 flex items-start justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-primary font-semibold">Case Study</p>
+            <h3 className="mt-2 text-2xl font-bold text-slate-900 dark:text-white">{project.title}</h3>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
+            aria-label="Close case study"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        <div className="p-6 md:p-8 space-y-6">
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Challenge</h4>
+            <p className="mt-2 text-slate-700 dark:text-slate-300 leading-relaxed">{caseStudy.challenge || project.description}</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Approach</h4>
+            <p className="mt-2 text-slate-700 dark:text-slate-300 leading-relaxed">{caseStudy.approach || project.description}</p>
+          </div>
+
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Impact</h4>
+            <p className="mt-2 text-slate-700 dark:text-slate-300 leading-relaxed">{caseStudy.impact || "Production-ready implementation focused on reliability and user experience."}</p>
+          </div>
+
+          {Array.isArray(caseStudy.highlights) && caseStudy.highlights.length > 0 && (
+            <div>
+              <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Highlights</h4>
+              <ul className="mt-2 space-y-2">
+                {caseStudy.highlights.map((highlight) => (
+                  <li key={highlight} className="text-slate-700 dark:text-slate-300 text-sm flex items-start">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2 mr-2 shrink-0"></span>
+                    <span>{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Tech Stack</h4>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {project.tech.map((item) => (
+                <span key={item} className="text-xs font-medium text-primary bg-primary/10 px-3 py-1 rounded-full">
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-2 flex flex-wrap gap-3">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm font-medium"
+            >
+              <Github size={18} />
+              View Code
+            </a>
+            {project.link && project.link !== '#' && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-white hover:bg-blue-600 transition-colors text-sm font-medium"
+              >
+                <ExternalLink size={18} />
+                Live Demo
+              </a>
+            )}
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+const ProjectCard = ({ project, index, onOpenCaseStudy }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
@@ -637,8 +849,13 @@ const ProjectCard = ({ project, index }) => {
             ))}
           </div>
 
-          <div className="flex gap-4 mt-auto">
-            <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm font-medium">
+          <div className="flex gap-3 mt-auto">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center justify-center gap-2 py-2 px-4 rounded-lg bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors text-sm font-medium ${project.link && project.link !== '#' ? 'flex-1' : 'w-full'}`}
+            >
               <Github size={18} />
               Code
             </a>
@@ -649,6 +866,14 @@ const ProjectCard = ({ project, index }) => {
               </a>
             )}
           </div>
+          <button
+            type="button"
+            onClick={() => onOpenCaseStudy(project)}
+            className="mt-3 w-full flex items-center justify-center gap-2 py-2 px-4 rounded-lg border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary transition-colors text-sm font-medium"
+          >
+            <Eye size={18} />
+            Case Study
+          </button>
         </div>
       </motion.div>
     </motion.div>
@@ -656,6 +881,33 @@ const ProjectCard = ({ project, index }) => {
 };
 
 const Projects = () => {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedTech, setSelectedTech] = useState('All');
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const techFilters = useMemo(() => {
+    return ['All', ...new Set(PROJECTS.flatMap((project) => project.tech))];
+  }, []);
+
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+
+  const filteredProjects = useMemo(() => {
+    return PROJECTS.filter((project) => {
+      const matchesTech = selectedTech === 'All' || project.tech.includes(selectedTech);
+      if (!normalizedQuery) {
+        return matchesTech;
+      }
+
+      const searchableText = `${project.title} ${project.description} ${project.tech.join(' ')}`.toLowerCase();
+      return matchesTech && searchableText.includes(normalizedQuery);
+    });
+  }, [normalizedQuery, selectedTech]);
+
+  const clearFilters = () => {
+    setSearchQuery('');
+    setSelectedTech('All');
+  };
+
   return (
     <section id="projects" className="py-12 bg-white dark:bg-dark transition-colors">
       <div className="max-w-6xl mx-auto px-6">
@@ -671,12 +923,74 @@ const Projects = () => {
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={index} project={project} index={index} />
-          ))}
+        <div className="mb-10">
+          <div className="relative max-w-xl">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by project title, stack, or keyword..."
+              className="w-full bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl pl-11 pr-4 py-3 text-slate-900 dark:text-white focus:outline-none focus:border-primary transition-colors"
+            />
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
+            {techFilters.map((tech) => (
+              <button
+                key={tech}
+                type="button"
+                onClick={() => setSelectedTech(tech)}
+                className={`px-3 py-1.5 rounded-full text-sm border transition-colors ${selectedTech === tech ? 'bg-primary text-white border-primary' : 'bg-white dark:bg-slate-900 border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:border-primary hover:text-primary'}`}
+              >
+                {tech}
+              </button>
+            ))}
+          </div>
+
+          <div className="mt-4 flex items-center justify-between gap-3">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
+              Showing {filteredProjects.length} of {PROJECTS.length} projects
+            </p>
+            {(searchQuery || selectedTech !== 'All') && (
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="text-sm text-primary hover:underline"
+              >
+                Clear filters
+              </button>
+            )}
+          </div>
         </div>
+
+        {filteredProjects.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
+                key={project.title}
+                project={project}
+                index={index}
+                onOpenCaseStudy={setSelectedProject}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 p-8 text-center">
+            <p className="text-lg font-semibold text-slate-900 dark:text-white">No projects found</p>
+            <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">Try a different keyword or reset the current filter.</p>
+          </div>
+        )}
       </div>
+
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectCaseStudyModal
+            project={selectedProject}
+            onClose={() => setSelectedProject(null)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 };
@@ -754,6 +1068,42 @@ const Experience = () => {
                 View Details
               </a>
             </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Education = () => {
+  return (
+    <section id="education" className="py-12 bg-white dark:bg-dark transition-colors">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.h2
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-bold text-slate-900 dark:text-white mb-12 transition-colors"
+        >
+          Education
+        </motion.h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {EDUCATION.map((item, index) => (
+            <motion.div
+              key={item.degree}
+              className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.degree}</h3>
+              <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{item.institute}</p>
+              <p className="mt-3 text-sm text-primary font-medium">{item.score}</p>
+              <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{item.duration}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
@@ -1053,9 +1403,10 @@ function App() {
             <main>
               <Hero />
               <About />
-              <Skills />
               <Experience />
+              <Skills />
               <Projects />
+              <Education />
               <Contact showToast={showToast} />
             </main>
             <Footer />
