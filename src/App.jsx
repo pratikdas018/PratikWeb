@@ -50,7 +50,15 @@ const PROJECTS = [
     github: "https://github.com/pratikdas018/CineCircle",
     image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop"
   },
-   {
+  {
+    title: "FoodieFly Real-time Food-delivery-App",
+    description: "A full-stack food delivery platform with real-time tracking, restaurant listings, and a responsive UI. Built with React.js, Node.js, Express, and MongoDB.",
+    tech: ["React", "Express", "Node.js", "Socket.io", "JWT", "MongoDB"],
+    link: "https://pratik-foodie-fly.vercel.app/",
+    github: "https://github.com/pratikdas018/FoodieFly",
+    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop"
+  },
+  {
     title: "CollabTrack",
     description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
@@ -73,14 +81,6 @@ const PROJECTS = [
     link: "https://codelms-net.vercel.app/",
     github: "https://github.com/pratikdas018/LMS",
     image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop"
-  },
-  {
-    title: "Vingo Real-time Food-delivery-App",
-    description: "A full-stack food delivery platform with real-time tracking, restaurant listings, and a responsive UI. Built with React.js, Node.js, Express, and MongoDB.",
-    tech: ["React", "Express", "Node.js", "Socket.io", "JWT", "MongoDB"],
-    link: "https://food-delivery-vingo-frontend.onrender.com/",
-    github: "https://github.com/pratikdas018/Food-Delivery",
-    image: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?q=80&w=1981&auto=format&fit=crop"
   },
   {
     title: "TalkNex - AI Voice Assistant",
