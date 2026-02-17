@@ -156,6 +156,24 @@ const PROJECTS = [
     }
   },
   {
+    title: "Resume Shortlister (ATS Skill Match Analyzer)",
+    description: "A resume analysis tool that compares user skills with job descriptions and calculates an exact match percentage, highlighting missing and matched skills.",
+    tech: ["React", "JavaScript", "Text Analysis", "ATS Logic"],
+    link: "https://pratik-resume-shortlister.vercel.app",
+    github: "https://github.com/pratikdas018/resume-shortlister",
+    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2340&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Applicants needed fast feedback on resume fit against job descriptions.",
+      approach: "Built a text-analysis tool that calculates match score and skills gap.",
+      impact: "Provided actionable recommendations for stronger application readiness.",
+      highlights: [
+        "Exact match scoring between resume and JD",
+        "Missing and matched skill breakdown",
+        "Simple UI for quick resume evaluation"
+      ]
+    }
+  },
+  {
     title: "TalkNex - AI Voice Assistant",
     description: "An AI-based voice assistant similar to Google Assistant that allows users to talk via voice commands, set a custom assistant name and image, and interact naturally.",
     tech: ["React", "Web Speech API", "JavaScript", "AI Logic"],
@@ -170,24 +188,6 @@ const PROJECTS = [
         "Voice command processing via Web Speech API",
         "Custom assistant profile configuration",
         "Extensible command interpretation logic"
-      ]
-    }
-  },
-  {
-    title: "Resume Shortlister (ATS Skill Match Analyzer)",
-    description: "A resume analysis tool that compares user skills with job descriptions and calculates an exact match percentage, highlighting missing and matched skills.",
-    tech: ["React", "JavaScript", "Text Analysis", "ATS Logic"],
-    link: "#",
-    github: "https://github.com/pratikdas018/resume-shortlister",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2340&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Applicants needed fast feedback on resume fit against job descriptions.",
-      approach: "Built a text-analysis tool that calculates match score and skills gap.",
-      impact: "Provided actionable recommendations for stronger application readiness.",
-      highlights: [
-        "Exact match scoring between resume and JD",
-        "Missing and matched skill breakdown",
-        "Simple UI for quick resume evaluation"
       ]
     }
   }
