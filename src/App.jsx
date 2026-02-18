@@ -2,14 +2,14 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import confetti from 'canvas-confetti';
-import { 
-  Github, 
-  Linkedin, 
-  Mail, 
-  ExternalLink, 
-  Code2, 
-  Database, 
-  Layout, 
+import {
+  Github,
+  Linkedin,
+  Mail,
+  ExternalLink,
+  Code2,
+  Database,
+  Layout,
   Server,
   Menu,
   X,
@@ -102,6 +102,44 @@ const PROJECTS = [
     }
   },
   {
+    title: "NeuroChat – AI Chatbot SaaS",
+    description: "A full-stack AI-powered chatbot SaaS application that enables users to engage in real-time intelligent conversations with secure authentication, persistent chat history, and streaming AI responses.",
+    tech: ["Next.js 14", "TypeScript", "Gemini API", "Firebase", "NextAuth", "Tailwind CSS"],
+    link: "https://ai-chat-bot-neuro.vercel.app/",
+    github: "https://github.com/pratikdas018/Ai-ChatBot",
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=2274&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Users needed an intelligent conversational system capable of handling real-time queries with secure access and persistent chat memory.",
+      approach: "Developed a scalable AI chatbot using Next.js and Gemini API with streaming responses, multi-conversation support, and Firebase for real-time database management.",
+      impact: "Enabled users to interact with an AI assistant in real-time with improved response speed and seamless conversation tracking.",
+      highlights: [
+        "Real-time streaming AI responses using Gemini API",
+        "Multi-conversation chat support",
+        "Secure user authentication with NextAuth",
+        "Persistent chat history using Firebase",
+        "Modern SaaS UI with Tailwind CSS"
+      ]
+    }
+  },
+  {
+    title: "LMS – Learning Management System",
+    description: "A full-stack Learning Management System that supports role-based access for students and admins, task assignment, progress tracking, and secure authentication.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "JWT"],
+    link: "https://codelms-net.vercel.app/",
+    github: "https://github.com/pratikdas018/LMS",
+    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Academic operations needed role-based access and trackable learning outcomes.",
+      approach: "Built role-specific modules for tasks, progress, and secure learning workflows.",
+      impact: "Improved teaching and monitoring efficiency with clear student progress data.",
+      highlights: [
+        "Role-based student and admin experiences",
+        "Task assignment and progress tracking",
+        "Secure authentication and API design"
+      ]
+    }
+  },
+  {
     title: "CollabTrack",
     description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
@@ -134,24 +172,6 @@ const PROJECTS = [
         "Typing status and online presence",
         "Room-based scalable chat model",
         "Secure auth via JWT and OAuth"
-      ]
-    }
-  },
-  {
-    title: "LMS – Learning Management System",
-    description: "A full-stack Learning Management System that supports role-based access for students and admins, task assignment, progress tracking, and secure authentication.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "JWT"],
-    link: "https://codelms-net.vercel.app/",
-    github: "https://github.com/pratikdas018/LMS",
-    image: "https://images.unsplash.com/photo-1501504905252-473c47e087f8?q=80&w=2274&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Academic operations needed role-based access and trackable learning outcomes.",
-      approach: "Built role-specific modules for tasks, progress, and secure learning workflows.",
-      impact: "Improved teaching and monitoring efficiency with clear student progress data.",
-      highlights: [
-        "Role-based student and admin experiences",
-        "Task assignment and progress tracking",
-        "Secure authentication and API design"
       ]
     }
   },
@@ -281,10 +301,10 @@ const Navbar = ({ theme, toggleTheme }) => {
         {/* Center: Nav Links (Desktop) */}
         <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
           {NAV_LINKS.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              onClick={(e) => handleNavClick(e, link.href)} 
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={(e) => handleNavClick(e, link.href)}
               className={`text-sm font-medium transition-colors ${activeSection === link.href.substring(1) ? 'text-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}
             >
               {link.name}
@@ -306,7 +326,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             </a>
           </div>
 
-          <button 
+          <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
             aria-label="Toggle Theme"
@@ -316,8 +336,8 @@ const Navbar = ({ theme, toggleTheme }) => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
-            <button 
-              className="text-slate-900 dark:text-white hover:text-primary transition-colors p-1" 
+            <button
+              className="text-slate-900 dark:text-white hover:text-primary transition-colors p-1"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
             >
@@ -332,9 +352,9 @@ const Navbar = ({ theme, toggleTheme }) => {
         <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-lg">
           <div className="flex flex-col p-6 space-y-4">
             {NAV_LINKS.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href} 
+              <a
+                key={link.name}
+                href={link.href}
                 className={`text-lg font-medium ${activeSection === link.href.substring(1) ? 'text-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}
                 onClick={(e) => handleNavClick(e, link.href)}
               >
@@ -434,7 +454,7 @@ const ParticleBackground = () => {
 
 const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
   const [displayText, setDisplayText] = useState('');
-  
+
   useEffect(() => {
     const startTimeout = setTimeout(() => {
       let i = 0;
@@ -455,8 +475,8 @@ const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
   return (
     <span className="inline-flex items-center">
       {displayText}
-      <motion.span 
-        animate={{ opacity: [1, 0] }} 
+      <motion.span
+        animate={{ opacity: [1, 0] }}
         transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
         className="inline-block ml-1 w-0.5 h-4 bg-primary"
       />
@@ -475,7 +495,7 @@ const Hero = () => {
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-dark to-dark -z-10" />
       <ParticleBackground />
-      
+
       <div className="max-w-6xl mx-auto px-6 flex flex-col items-center text-center">
         <motion.div
           initial="hidden"
@@ -499,7 +519,7 @@ const Hero = () => {
           <motion.div variants={fadeInUp} className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm h-6 flex items-center">
             <Typewriter text="Hi, I'm Pratik Das" speed={100} delay={500} onComplete={() => setShowScrollDown(true)} />
           </motion.div>
-          <motion.h1 
+          <motion.h1
             variants={{
               hidden: { opacity: 1 },
               visible: {
@@ -555,7 +575,7 @@ const About = () => {
   return (
     <section id="about" className="py-10 bg-white dark:bg-dark transition-colors">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -565,9 +585,9 @@ const About = () => {
           <div className="relative group">
             <div className="absolute -inset-2 bg-slate-800 rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
             <div className="relative aspect-square rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1000&auto=format&fit=crop" 
-                alt="Coding Setup" 
+              <img
+                src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1000&auto=format&fit=crop"
+                alt="Coding Setup"
                 className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -585,7 +605,7 @@ const About = () => {
                 My development philosophy centers on writing clean, maintainable code and optimizing system performance. Whether architecting secure backend APIs or crafting pixel-perfect user interfaces, I am driven by a passion for continuous learning and engineering excellence.
               </p>
             </div>
-            
+
             <div className="grid grid-cols-2 gap-6 mt-8">
               <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border-l-4 border-primary shadow-sm">
                 <h4 className="font-bold text-slate-900 dark:text-white">Engineering Excellence</h4>
@@ -614,7 +634,7 @@ const Skills = () => {
   return (
     <section id="skills" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -821,9 +841,9 @@ const ProjectCard = ({ project, index, onOpenCaseStudy }) => {
         className="group relative bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 hover:border-primary/50 transition-colors shadow-sm dark:shadow-none flex flex-col h-full"
       >
         <div style={{ transform: "translateZ(50px)" }} className="h-48 overflow-hidden relative">
-          <img 
-            src={project.image} 
-            alt={project.title} 
+          <img
+            src={project.image}
+            alt={project.title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -835,7 +855,7 @@ const ProjectCard = ({ project, index, onOpenCaseStudy }) => {
             )}
           </div>
         </div>
-        
+
         <div style={{ transform: "translateZ(20px)" }} className="p-6 flex flex-col flex-grow bg-slate-50 dark:bg-slate-800">
           <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 transition-colors">{project.title}</h3>
           <p className="text-slate-600 dark:text-slate-400 mb-4 text-sm leading-relaxed transition-colors flex-grow">
@@ -911,7 +931,7 @@ const Projects = () => {
   return (
     <section id="projects" className="py-12 bg-white dark:bg-dark transition-colors">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
@@ -999,7 +1019,7 @@ const Experience = () => {
   return (
     <section id="experience" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.h2 
+        <motion.h2
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
@@ -1009,65 +1029,65 @@ const Experience = () => {
         </motion.h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Saiket Systems */}
-            <motion.div 
-              className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+          {/* Saiket Systems */}
+          <motion.div
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Saiket Systems • Internship
+            </p>
+
+            <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+              <li>Worked on real-world web development projects using React and modern UI practices</li>
+              <li>Built responsive and user-friendly interfaces following industry standards</li>
+              <li>Collaborated with mentors and followed structured task-based development</li>
+              <li>Improved debugging, code optimization, and deployment skills</li>
+            </ul>
+            <a
+              href={OFFER_LETTER_DRIVE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
             >
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Saiket Systems • Internship
-              </p>
+              View Details
+            </a>
+          </motion.div>
 
-              <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-                <li>Worked on real-world web development projects using React and modern UI practices</li>
-                <li>Built responsive and user-friendly interfaces following industry standards</li>
-                <li>Collaborated with mentors and followed structured task-based development</li>
-                <li>Improved debugging, code optimization, and deployment skills</li>
-              </ul>
-              <a
-                href={OFFER_LETTER_DRIVE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
-              >
-                View Details
-              </a>
-            </motion.div>
+          {/* Dynamix Networks */}
+          <motion.div
+            className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              Dynamix Networks • Internship
+            </p>
 
-            {/* Dynamix Networks */}
-            <motion.div
-              className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
-              variants={fadeInUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
+            <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+              <li>Developed full-stack features using MERN stack</li>
+              <li>Worked on authentication, REST APIs, and database integration</li>
+              <li>Implemented real-time and interactive components</li>
+              <li>Maintained GitHub repositories and shared progress on LinkedIn</li>
+            </ul>
+            <a
+              href={OFFER_LETTER_DRIVE_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
             >
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Dynamix Networks • Internship
-              </p>
-
-              <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-                <li>Developed full-stack features using MERN stack</li>
-                <li>Worked on authentication, REST APIs, and database integration</li>
-                <li>Implemented real-time and interactive components</li>
-                <li>Maintained GitHub repositories and shared progress on LinkedIn</li>
-              </ul>
-              <a
-                href={OFFER_LETTER_DRIVE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
-              >
-                View Details
-              </a>
-            </motion.div>
+              View Details
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -1116,7 +1136,7 @@ const Contact = ({ showToast }) => {
 
   const sendEmail = (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData(form.current);
     const email = formData.get('user_email');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1138,13 +1158,13 @@ const Contact = ({ showToast }) => {
       .then(
         () => {
           showToast('Message sent successfully!', 'success');
-          
+
           confetti({
             particleCount: 100,
             spread: 70,
             origin: { y: 0.6 }
           });
-          
+
           // Play notification sound
           try {
             const audio = new Audio('/notification.mp3');
@@ -1152,7 +1172,7 @@ const Contact = ({ showToast }) => {
           } catch (e) {
             console.log('Audio error', e);
           }
-          
+
           form.current.reset();
         },
         () => {
@@ -1176,7 +1196,7 @@ const Contact = ({ showToast }) => {
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-xl mx-auto mb-12 transition-colors">
             I’m open to internships, freelance projects and collaboration. Drop a message and I’ll respond promptly.
           </p>
-          
+
           <div className="bg-slate-50 dark:bg-slate-800/50 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 max-w-md mx-auto text-left transition-colors shadow-sm dark:shadow-none">
             <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <div>
@@ -1218,9 +1238,8 @@ const Toast = ({ message, type, onClose }) => (
     initial={{ opacity: 0, y: 50, x: '-50%' }}
     animate={{ opacity: 1, y: 0, x: '-50%' }}
     exit={{ opacity: 0, y: 20, x: '-50%' }}
-    className={`fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 ${
-      type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
-    }`}
+    className={`fixed bottom-10 left-1/2 transform -translate-x-1/2 z-50 px-6 py-3 rounded-full shadow-2xl flex items-center gap-3 ${type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'
+      }`}
   >
     {type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
     <span className="font-medium">{message}</span>
@@ -1270,9 +1289,9 @@ function App() {
       try {
         const response = await fetch('https://ipapi.co/json/');
         if (!response.ok) throw new Error('Failed to fetch IP data');
-        
+
         const data = await response.json();
-        
+
         const visitorInfo = {
           ip: data.ip,
           city: data.city,
@@ -1375,7 +1394,7 @@ function App() {
           >
             <div className="flex flex-col items-center gap-4">
               <div className="w-48 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                <motion.div 
+                <motion.div
                   className="h-full bg-primary"
                   initial={{ width: "0%" }}
                   animate={{ width: "100%" }}
