@@ -122,6 +122,26 @@ const PROJECTS = [
     }
   },
   {
+    title: "FoodBridge – Food Waste Donation Platform",
+    description: "A full-stack AI-powered food donation platform that connects restaurants with NGOs to reduce food waste through real-time pickup scheduling, donation lifecycle tracking, and admin broadcast notifications.",
+    tech: ["Next.js", "TypeScript", "Firebase", "Gemini API", "Tailwind CSS"],
+    link: "https://foodbridge-liard.vercel.app/",
+    github: "https://github.com/pratikdas018/foodbridge",
+    image: "https://images.pexels.com/photos/6995247/pexels-photo-6995247.jpeg",
+    caseStudy: {
+      challenge: "Restaurants frequently waste surplus food due to lack of real-time coordination with NGOs for timely pickup and distribution.",
+      approach: "Built a role-based platform for Restaurants, NGOs, and Admins with real-time donation tracking, pickup scheduling, AI-powered email announcements, and professional receipt generation using Firebase and Gemini API.",
+      impact: "Enabled seamless coordination between food donors and NGOs, improving donation efficiency and reducing food wastage through verified pickup workflows.",
+      highlights: [
+        "Role-based NGO, Restaurant and Admin dashboards",
+        "Real-time donation claim and pickup scheduling system",
+        "AI-generated broadcast emails using Gemini API",
+        "Professional pickup receipt PDF generation",
+        "Admin verification and notification system"
+      ]
+    }
+  },
+  {
     title: "LMS – Learning Management System",
     description: "A full-stack Learning Management System that supports role-based access for students and admins, task assignment, progress tracking, and secure authentication.",
     tech: ["React", "Node.js", "Express", "MongoDB", "JWT"],
