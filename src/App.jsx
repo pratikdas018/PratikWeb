@@ -84,6 +84,28 @@ const PROJECTS = [
     }
   },
   {
+    title: "API Monitoring & Incident Response Platform",
+    description: "A distributed API monitoring platform that continuously tracks service health, latency, and uptime for multiple endpoints with automated incident lifecycle handling.",
+    tech: ["Next.js", "Node.js", "MongoDB", "Redis", "BullMQ", "Tailwind CSS", "Nodemailer"],
+    link: "https://api-monitoritor.vercel.app",
+    github: "https://github.com/pratikdas018/api_monitoritor",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Teams needed proactive API health monitoring, fast incident response, and clear public visibility into service reliability.",
+      approach: "Built a full-stack monitoring SaaS with Redis + BullMQ workers for asynchronous health checks, automated incident creation and resolution, and real-time dashboards.",
+      impact: "Improved operational awareness with faster outage detection, instant email alerts, and transparent uptime reporting.",
+      highlights: [
+        "Distributed background monitoring workers using BullMQ and Redis queues",
+        "Automated incident detection on endpoint failure and auto-resolution on recovery",
+        "Instant email alerting pipeline using Nodemailer",
+        "SaaS-style dashboard with real-time status, latency charts, and incident timelines",
+        "Public status page with uptime percentage and incident history",
+        "Uptime calculation and SLA compliance reporting",
+        "Multi-endpoint health tracking without blocking main application requests"
+      ]
+    }
+  },
+  {
     title: "FoodieFly Real-time Food-delivery-App",
     description: "A full-stack food delivery platform with real-time tracking, restaurant listings, and a responsive UI. Built with React.js, Node.js, Express, and MongoDB.",
     tech: ["React", "Express", "Node.js", "Socket.io", "JWT", "MongoDB"],
@@ -233,7 +255,7 @@ const PROJECTS = [
   }
 ];
 
-const OFFER_LETTER_DRIVE_URL = "https://drive.google.com/drive/folders/1vQ2rTmOmw692DxreyN2wRw-f-LR9QC0S";
+const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/1vQ2rTmOmw692DxreyN2wRw-f-LR9QC0S";
 
 const EMAILJS_SERVICE_ID = "service_df3o81k";
 const EMAILJS_VISITOR_TEMPLATE_ID = "template_visitor_alert";
@@ -338,7 +360,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             <a href="https://github.com/pratikdas018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
               <Github size={20} />
             </a>
-            <a href="https://www.linkedin.com/in/pratik-das-sonu-7201a328b/" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
+            <a href="https://www.linkedin.com/in/pratik018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
               <Linkedin size={20} />
             </a>
             <a href="pratikdassonu@gmail.com" onClick={(e) => handleNavClick(e, '#contact')} className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
@@ -470,6 +492,63 @@ const ParticleBackground = () => {
   }, []);
 
   return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none opacity-30" />;
+};
+
+const CursorFollower = () => {
+  const [enabled, setEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [pressed, setPressed] = useState(false);
+  const dotX = useMotionValue(-100);
+  const dotY = useMotionValue(-100);
+  const ringX = useSpring(dotX, { stiffness: 280, damping: 28 });
+  const ringY = useSpring(dotY, { stiffness: 280, damping: 28 });
+
+  useEffect(() => {
+    const finePointer = window.matchMedia('(pointer: fine)').matches;
+    setEnabled(finePointer);
+    if (!finePointer) return;
+
+    const handleMove = (e) => {
+      dotX.set(e.clientX);
+      dotY.set(e.clientY);
+      setVisible(true);
+    };
+    const handleEnter = () => setVisible(true);
+    const handleLeave = () => setVisible(false);
+    const handleDown = () => setPressed(true);
+    const handleUp = () => setPressed(false);
+
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseenter', handleEnter);
+    window.addEventListener('mouseleave', handleLeave);
+    window.addEventListener('mousedown', handleDown);
+    window.addEventListener('mouseup', handleUp);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseenter', handleEnter);
+      window.removeEventListener('mouseleave', handleLeave);
+      window.removeEventListener('mousedown', handleDown);
+      window.removeEventListener('mouseup', handleUp);
+    };
+  }, [dotX, dotY]);
+
+  if (!enabled) return null;
+
+  return (
+    <>
+      <motion.div
+        className="fixed top-0 left-0 z-[60] h-2.5 w-2.5 rounded-full bg-primary pointer-events-none"
+        style={{ x: dotX, y: dotY, translateX: '-50%', translateY: '-50%', opacity: visible ? 1 : 0 }}
+      />
+      <motion.div
+        className="fixed top-0 left-0 z-[59] h-9 w-9 rounded-full border border-primary/70 pointer-events-none"
+        style={{ x: ringX, y: ringY, translateX: '-50%', translateY: '-50%', opacity: visible ? 0.35 : 0 }}
+        animate={{ scale: pressed ? 0.82 : 1 }}
+        transition={{ duration: 0.15 }}
+      />
+    </>
+  );
 };
 
 const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
@@ -1048,8 +1127,7 @@ const Experience = () => {
           Work Experience
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Saiket Systems */}
+        <div className="grid grid-cols-1 gap-6">
           <motion.div
             className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
             variants={fadeInUp}
@@ -1058,51 +1136,21 @@ const Experience = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Saiket Systems • Internship
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Full-Stack Web Developer Intern</h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400">AIKING SOLUTIONS</p>
+            <p className="mt-2 text-sm font-medium text-primary">Mar 2025 - Present</p>
+            <p className="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+              Worked on production-oriented full-stack modules, collaborated with mentors on clean architecture decisions, and delivered performance-focused features across frontend and backend workflows.
             </p>
-
             <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Worked on real-world web development projects using React and modern UI practices</li>
-              <li>Built responsive and user-friendly interfaces following industry standards</li>
-              <li>Collaborated with mentors and followed structured task-based development</li>
-              <li>Improved debugging, code optimization, and deployment skills</li>
+              <li>Built and shipped reusable React UI components with responsive behavior.</li>
+              <li>Integrated secure APIs and database flows for real-world application use cases.</li>
+              <li>Improved debugging, optimization, and deployment reliability during development cycles.</li>
             </ul>
             <a
-              href={OFFER_LETTER_DRIVE_URL}
+              href={INTERNSHIP_DETAILS_URL}
               target="_blank"
-              rel="noreferrer"
-              className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
-            >
-              View Details
-            </a>
-          </motion.div>
-
-          {/* Dynamix Networks */}
-          <motion.div
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
-            variants={fadeInUp}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Web Development Intern</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">
-              Dynamix Networks • Internship
-            </p>
-
-            <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Developed full-stack features using MERN stack</li>
-              <li>Worked on authentication, REST APIs, and database integration</li>
-              <li>Implemented real-time and interactive components</li>
-              <li>Maintained GitHub repositories and shared progress on LinkedIn</li>
-            </ul>
-            <a
-              href={OFFER_LETTER_DRIVE_URL}
-              target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
             >
               View Details
@@ -1113,7 +1161,6 @@ const Experience = () => {
     </section>
   );
 };
-
 const Education = () => {
   return (
     <section id="education" className="py-12 bg-white dark:bg-dark transition-colors">
@@ -1370,7 +1417,7 @@ function App() {
       "description": "Full Stack Developer specializing in MERN stack and Computer Science Engineering.",
       "sameAs": [
         "https://github.com/pratikdas018",
-        "https://www.linkedin.com/in/pratik-das-sonu-7201a328b/"
+        "https://www.linkedin.com/in/pratik018"
       ]
     });
     document.head.appendChild(script);
@@ -1402,6 +1449,7 @@ function App() {
 
   return (
     <div className="bg-white dark:bg-dark min-h-screen transition-colors duration-300">
+      <CursorFollower />
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div
@@ -1476,3 +1524,4 @@ function App() {
 }
 
 export default App;
+
