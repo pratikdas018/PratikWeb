@@ -261,6 +261,8 @@ const EMAILJS_SERVICE_ID = "service_df3o81k";
 const EMAILJS_VISITOR_TEMPLATE_ID = "template_visitor_alert";
 const EMAILJS_CONTACT_TEMPLATE_ID = "template_3cl97i5";
 const EMAILJS_PUBLIC_KEY = "EIAbfqJCZvoUsPzeX";
+const CONTACT_EMAIL = "pratikdassonu@gmail.com";
+const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}`;
 
 // --- Animation Variants ---
 
@@ -279,7 +281,108 @@ const staggerContainer = {
   }
 };
 
+const getNavSocialIconVariants = (delay = 0) => ({
+  initial: { opacity: 0, y: -10, scale: 0.94 },
+  idle: {
+    opacity: 1,
+    y: [0, -2, 0],
+    scale: 1,
+    transition: {
+      opacity: { duration: 0.35, delay },
+      scale: { duration: 0.3, delay },
+      y: {
+        duration: 3.2,
+        repeat: Infinity,
+        ease: "easeInOut",
+        delay: delay + 0.2
+      }
+    }
+  },
+  hover: {
+    y: -6,
+    scale: 1.14,
+    transition: { type: "spring", stiffness: 320, damping: 20 }
+  },
+  tap: { y: -3, scale: 0.96 }
+});
+
+const navIconGlowVariants = {
+  idle: {
+    opacity: [0.08, 0.22, 0.08],
+    scale: [0.72, 1.12, 0.72],
+    transition: { duration: 2.6, repeat: Infinity, ease: "easeInOut" }
+  },
+  hover: {
+    opacity: 0.32,
+    scale: 1.35,
+    transition: { duration: 0.22, ease: "easeOut" }
+  }
+};
+
+const navIconTrailLeftVariants = {
+  idle: { opacity: 0, x: 0, y: 0, scale: 1 },
+  hover: {
+    opacity: [0, 0.34, 0],
+    x: [0, -8, -16],
+    y: [0, 2, 6],
+    scale: [1, 1.05, 1.12],
+    transition: { duration: 0.7, repeat: Infinity, ease: "easeOut" }
+  }
+};
+
+const navIconTrailRightVariants = {
+  idle: { opacity: 0, x: 0, y: 0, scale: 1 },
+  hover: {
+    opacity: [0, 0.26, 0],
+    x: [0, 7, 14],
+    y: [0, 1, 5],
+    scale: [1, 1.04, 1.08],
+    transition: { duration: 0.72, repeat: Infinity, ease: "easeOut", delay: 0.08 }
+  }
+};
+
 // --- Components ---
+
+const NavbarSocialIcon = ({ href, label, icon: Icon, delay = 0, external = true }) => {
+  const renderIcon = () => React.createElement(Icon, { size: 20 });
+
+  return (
+    <motion.a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      aria-label={label}
+      className="group relative inline-flex h-9 w-9 items-center justify-center text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+      initial="initial"
+      animate="idle"
+      whileHover="hover"
+      whileTap="tap"
+      variants={getNavSocialIconVariants(delay)}
+    >
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 -z-10 rounded-full bg-primary/20 blur-md"
+        variants={navIconGlowVariants}
+      />
+      <motion.span
+        aria-hidden
+        className="pointer-events-none absolute text-primary/35"
+        variants={navIconTrailLeftVariants}
+      >
+        {renderIcon()}
+      </motion.span>
+      <motion.span
+        aria-hidden
+        className="pointer-events-none absolute text-primary/25"
+        variants={navIconTrailRightVariants}
+      >
+        {renderIcon()}
+      </motion.span>
+      <span className="relative z-10">
+        {renderIcon()}
+      </span>
+    </motion.a>
+  );
+};
 
 const Navbar = ({ theme, toggleTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -322,100 +425,170 @@ const Navbar = ({ theme, toggleTheme }) => {
   };
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/90 dark:bg-dark/90 backdrop-blur-md py-4 shadow-lg' : 'bg-transparent py-6'}`}>
-      <div className="max-w-7xl mx-auto px-6 flex justify-between items-center relative">
-        {/* Top Left: Resume & View Project Buttons */}
-        <div className="flex items-center gap-4">
-          <a href="/pratik's Resume.pdf" download className="hidden md:flex items-center gap-2 px-5 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm">
-            <Download size={16} />
-            <span>Resume</span>
-          </a>
-          <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="hidden md:flex items-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm shadow-lg shadow-slate-900/20 dark:shadow-white/20">
-            <Eye size={16} />
-            <span>View Projects</span>
-          </a>
-          {/* Mobile Logo Fallback */}
-          <a href="#" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }} className="md:hidden text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
-            Pratik<span className="text-primary">Portfolio</span>.
-          </a>
-        </div>
+    <nav className="fixed inset-x-0 top-0 z-50">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-4">
+        <div
+          className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${
+            scrolled
+              ? 'bg-white/85 dark:bg-slate-950/75 border-slate-200/80 dark:border-slate-700/80 shadow-[0_20px_50px_-30px_rgba(2,6,23,0.8)]'
+              : 'bg-white/60 dark:bg-slate-950/55 border-white/50 dark:border-slate-700/55 shadow-[0_14px_40px_-28px_rgba(2,6,23,0.85)]'
+          }`}
+        >
+          <div className="pointer-events-none absolute -top-10 right-8 h-24 w-24 rounded-full bg-black/15 dark:bg-white/10 blur-2xl"></div>
+          <div className="pointer-events-none absolute -bottom-12 left-8 h-24 w-24 rounded-full bg-slate-500/20 dark:bg-slate-300/10 blur-2xl"></div>
 
-        {/* Center: Nav Links (Desktop) */}
-        <div className="hidden md:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
-          {NAV_LINKS.map((link) => (
+          <div className="relative flex items-center justify-between gap-2 px-4 py-3 md:px-6">
             <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className={`text-sm font-medium transition-colors ${activeSection === link.href.substring(1) ? 'text-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="group flex items-center gap-3 shrink-0"
             >
-              {link.name}
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white font-bold tracking-wide shadow-lg shadow-black/30 ring-1 ring-white/10 dark:ring-white/20">
+                PD
+              </span>
+              <span className="hidden sm:flex flex-col leading-tight">
+                <span className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pratik Das</span>
+                <span className="text-[11px] uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Full Stack</span>
+              </span>
             </a>
-          ))}
-        </div>
 
-        {/* Top Right: Github, Linkedin, Toggle */}
-        <div className="flex items-center gap-4">
-          <div className="hidden md:flex items-center gap-4 border-r border-slate-200 dark:border-slate-800 pr-4 mr-1">
-            <a href="https://github.com/pratikdas018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
-              <Github size={20} />
-            </a>
-            <a href="https://www.linkedin.com/in/pratik018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
-              <Linkedin size={20} />
-            </a>
-            <a href="pratikdassonu@gmail.com" onClick={(e) => handleNavClick(e, '#contact')} className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors">
-              <Mail size={20} />
-            </a>
-          </div>
+            <div className="hidden xl:flex items-center gap-1 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/60 px-2 py-1">
+              {NAV_LINKS.map((link) => {
+                const isActive = activeSection === link.href.substring(1);
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="relative px-4 py-2 text-sm font-medium rounded-full"
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="desktop-active-nav-pill"
+                        className="absolute inset-0 rounded-full bg-primary/15 border border-primary/30"
+                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                    <span className={`relative z-10 transition-colors ${isActive ? 'text-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}>
+                      {link.name}
+                    </span>
+                  </a>
+                );
+              })}
+            </div>
 
-          <button
-            onClick={toggleTheme}
-            className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? <Sun size={22} /> : <Moon size={22} />}
-          </button>
+            <div className="flex items-center gap-2 md:gap-3">
+              <div className="hidden lg:flex items-center gap-2 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-900/55 px-2 py-1">
+                <a href="/pratik's Resume.pdf" download className="flex items-center gap-2 px-3 py-1.5 text-slate-700 dark:text-slate-200 rounded-full text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+                  <Download size={15} />
+                  <span>Resume</span>
+                </a>
+                <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm shadow-lg shadow-slate-900/20 dark:shadow-white/20">
+                  <Eye size={15} />
+                  <span>Projects</span>
+                </a>
+              </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button
-              className="text-slate-900 dark:text-white hover:text-primary transition-colors p-1"
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
-        </div>
-      </div>
+              <div className="hidden lg:flex items-center gap-2 border-l border-slate-200 dark:border-slate-700 pl-3">
+                <NavbarSocialIcon
+                  href="https://github.com/pratikdas018"
+                  label="GitHub"
+                  icon={Github}
+                  delay={0.05}
+                />
+                <NavbarSocialIcon
+                  href="https://www.linkedin.com/in/pratik018"
+                  label="LinkedIn"
+                  icon={Linkedin}
+                  delay={0.1}
+                />
+                <NavbarSocialIcon
+                  href={GMAIL_COMPOSE_URL}
+                  label="Email Pratik"
+                  icon={Mail}
+                  delay={0.15}
+                />
+              </div>
 
-      {/* Mobile Nav */}
-      {isOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-white/95 dark:bg-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 shadow-lg">
-          <div className="flex flex-col p-6 space-y-4">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-lg font-medium ${activeSection === link.href.substring(1) ? 'text-primary' : 'text-slate-600 dark:text-slate-300 hover:text-primary'}`}
-                onClick={(e) => handleNavClick(e, link.href)}
+              <motion.button
+                onClick={toggleTheme}
+                whileTap={{ scale: 0.92 }}
+                className="p-2.5 rounded-full bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors border border-slate-200/80 dark:border-slate-700/80"
+                aria-label="Toggle Theme"
               >
-                {link.name}
-              </a>
-            ))}
-            <div className="flex flex-col gap-4 pt-4 mt-2 border-t border-slate-200 dark:border-slate-800">
-              <a href="/pratik's Resume.pdf" download onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 px-5 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-full font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm">
-                <Download size={16} />
-                <span>Resume</span>
-              </a>
-              <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="flex items-center justify-center gap-2 px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm shadow-lg shadow-slate-900/20 dark:shadow-white/20">
-                <Eye size={16} />
-                <span>View Projects</span>
-              </a>
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </motion.button>
+
+              <button
+                className="xl:hidden text-slate-900 dark:text-white hover:text-primary transition-colors p-2 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80"
+                onClick={() => setIsOpen(!isOpen)}
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X size={22} /> : <Menu size={22} />}
+              </button>
             </div>
           </div>
         </div>
-      )}
+
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -10, height: 0 }}
+              animate={{ opacity: 1, y: 0, height: 'auto' }}
+              exit={{ opacity: 0, y: -8, height: 0 }}
+              transition={{ duration: 0.28, ease: 'easeOut' }}
+              className="xl:hidden mt-2 overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/95 dark:bg-slate-950/90 backdrop-blur-md shadow-lg"
+            >
+              <div className="p-4">
+                <div className="grid gap-2">
+                  {NAV_LINKS.map((link, index) => {
+                    const isActive = activeSection === link.href.substring(1);
+                    return (
+                      <motion.a
+                        key={link.name}
+                        href={link.href}
+                        onClick={(e) => handleNavClick(e, link.href)}
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.04 }}
+                        className={`rounded-xl px-3 py-2.5 text-base font-medium transition-colors ${isActive ? 'bg-primary/15 text-primary border border-primary/25' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800'}`}
+                      >
+                        {link.name}
+                      </motion.a>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a href="/pratik's Resume.pdf" download onClick={() => setIsOpen(false)} className="flex items-center justify-center gap-2 px-4 py-2.5 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white rounded-xl font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all text-sm">
+                    <Download size={16} />
+                    <span>Resume</span>
+                  </a>
+                  <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm">
+                    <Eye size={16} />
+                    <span>Projects</span>
+                  </a>
+                </div>
+
+                <div className="mt-4 flex items-center justify-center gap-5 border-t border-slate-200 dark:border-slate-700 pt-4">
+                  <a href="https://github.com/pratikdas018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" aria-label="GitHub">
+                    <Github size={20} />
+                  </a>
+                  <a href="https://www.linkedin.com/in/pratik018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" aria-label="LinkedIn">
+                    <Linkedin size={20} />
+                  </a>
+                  <a href={GMAIL_COMPOSE_URL} target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors" aria-label="Email Pratik">
+                    <Mail size={20} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </nav>
   );
 };
@@ -590,7 +763,7 @@ const Hero = () => {
   const line2 = "scalable solutions that matter.".split(" ");
 
   return (
-    <section className="min-h-screen flex items-center justify-center pt-20 pb-10 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center pt-28 md:pt-32 pb-10 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-slate-900/20 via-dark to-dark -z-10" />
       <ParticleBackground />
@@ -606,9 +779,9 @@ const Hero = () => {
           <motion.div variants={fadeInUp} className="relative mb-8">
             <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl relative z-10">
               {/* Place your image in the public folder as 'profile.jpg' */}
-              <img src="/profile.jpg" alt="Pratik Das" className="w-full h-full object-cover bg-slate-100" />
+              <img src="/profile.jpg" alt="Pratik Das" className="w-full h-full object-cover object-[center_18%] md:object-[center_22%] bg-slate-100" />
             </div>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-xl z-20">
+            <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-xl z-20">
               <div className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs md:text-sm font-bold px-4 py-2 rounded-full flex items-center gap-2 whitespace-nowrap">
                 Full Stack • Problem Solver
               </div>
@@ -629,7 +802,7 @@ const Hero = () => {
                 }
               }
             }}
-            className="text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight transition-colors leading-tight"
+            className="text-3xl sm:text-5xl md:text-7xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight transition-colors leading-tight"
           >
             {line1.map((word, i) => (
               <motion.span key={i} variants={fadeInUp} className={`inline-block ${i === line1.length - 1 ? '' : 'mr-4'}`}>{word}</motion.span>
@@ -698,14 +871,17 @@ const About = () => {
             </h2>
             <div className="space-y-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">
               <p>
-                I am a <span className="font-semibold text-slate-900 dark:text-white">Full Stack Developer</span> and <span className="font-semibold text-slate-900 dark:text-white">Computer Science Engineer</span> committed to building high-performance web applications. With a strong foundation in the MERN stack, I transform complex requirements into scalable, user-centric digital solutions.
+                I’m a <span className="font-semibold text-slate-900 dark:text-white">Full Stack Developer</span> specializing in the MERN stack, passionate about building fast, scalable, and user-focused web applications.
               </p>
               <p>
-                My development philosophy centers on writing clean, maintainable code and optimizing system performance. Whether architecting secure backend APIs or crafting pixel-perfect user interfaces, I am driven by a passion for continuous learning and engineering excellence.
+                I enjoy transforming complex ideas into clean, efficient, and maintainable solutions. From designing secure backend APIs to developing intuitive frontend interfaces, I focus on creating products that deliver both performance and great user experience.
+              </p>
+              <p>
+                Currently, I’m focused on building impactful projects, improving system scalability, and continuously learning modern technologies to become a better engineer every day.
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6 mt-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
               <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border-l-4 border-primary shadow-sm">
                 <h4 className="font-bold text-slate-900 dark:text-white">Engineering Excellence</h4>
                 <p className="text-sm text-slate-500">Scalable & efficient solutions</p>
@@ -1174,7 +1350,7 @@ const Education = () => {
           Education
         </motion.h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {EDUCATION.map((item, index) => (
             <motion.div
               key={item.degree}
@@ -1290,9 +1466,42 @@ const Contact = ({ showToast }) => {
           </div>
 
           <div className="mt-16 flex justify-center gap-8">
-            <a href="https://github.com/pratikdas018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"><Github size={24} /></a>
-            <a href="https://www.linkedin.com/in/pratik018" target="_blank" rel="noopener noreferrer" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"><Linkedin size={24} /></a>
-            <a href="mailto:pratikdassonu@gmail.com" className="text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"><Mail size={24} /></a>
+            <motion.a
+              href="https://github.com/pratikdas018"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              whileHover={{ y: -4, scale: 1.14 }}
+              whileTap={{ scale: 0.96 }}
+              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
+              <Github size={24} />
+            </motion.a>
+            <motion.a
+              href="https://www.linkedin.com/in/pratik018"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              whileHover={{ y: -4, scale: 1.14 }}
+              whileTap={{ scale: 0.96 }}
+              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
+              <Linkedin size={24} />
+            </motion.a>
+            <motion.a
+              href={GMAIL_COMPOSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email Pratik"
+              whileHover={{ y: -4, scale: 1.14 }}
+              whileTap={{ scale: 0.96 }}
+              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
+              <Mail size={24} />
+            </motion.a>
           </div>
         </motion.div>
       </div>
@@ -1448,7 +1657,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-dark min-h-screen transition-colors duration-300">
+    <div className="bg-white dark:bg-dark min-h-screen overflow-x-hidden transition-colors duration-300">
       <CursorFollower />
       <AnimatePresence mode="wait">
         {isLoading ? (
