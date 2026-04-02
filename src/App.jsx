@@ -255,7 +255,7 @@ const PROJECTS = [
   }
 ];
 
-const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/1vQ2rTmOmw692DxreyN2wRw-f-LR9QC0S";
+const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/11Hi4y9fruHLDAkx2emkORcbSMH96R-3h";
 
 const EMAILJS_SERVICE_ID = "service_df3o81k";
 const EMAILJS_VISITOR_TEMPLATE_ID = "template_visitor_alert";
