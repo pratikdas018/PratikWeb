@@ -37,10 +37,10 @@ const NAV_LINKS = [
 ];
 
 const SKILLS = {
-  "Programming & Frontend": ["C", "JavaScript (ES6+)", "TypeScript (Basic)", "React.js", "HTML5", "CSS3"],
-  "Backend & APIs": ["Node.js", "Express.js", "REST API", "Auth Workflows", "API Debugging"],
-  "Databases": ["MongoDB", "SQL"],
-  "Tools & Platforms": ["Git", "GitHub", "Postman", "VS Code", "Firebase", "Vercel", "Expo"]
+  "Programming & Frontend": ["C", "C++", "JavaScript (ES6+)", "Next.js", "TypeScript (Basic)", "React.js", "HTML5", "CSS3"],
+  "Backend & APIs": ["Node.js", "Express.js", "TypeScript", "REST API", "Auth Workflows", "API Debugging"],
+  "Databases": ["MongoDB", "SQL", "PostgreSQL"],
+  "Tools & Platforms": ["Git", "GitHub", "Postman", "VS Code", "Firebase", "Vercel", "Render", "Google Cloud", "Expo"]
 };
 
 const EDUCATION = [
@@ -65,24 +65,7 @@ const EDUCATION = [
 ];
 
 const PROJECTS = [
-  {
-    title: "CineCircle - Movie Gossip & Social Platform",
-    description: "A social platform for movie enthusiasts to post reviews, comment on films, and stay updated with movie gossip. Features include real-time chat, friend management, and a social feed to track friends' activities.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
-    link: "https://cine-circle-ten.vercel.app/",
-    github: "https://github.com/pratikdas018/CineCircle",
-    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Movie communities needed one place for reviews, social updates, and instant discussion.",
-      approach: "Developed a MERN social platform with live features powered by Socket.io.",
-      impact: "Created a more engaging experience by combining feed interactions with real-time chat.",
-      highlights: [
-        "Real-time chat and activity updates",
-        "Review posting and comment threads",
-        "Responsive social feed experience"
-      ]
-    }
-  },
+
   {
     title: "API Monitoring & Incident Response Platform",
     description: "A distributed API monitoring platform that continuously tracks service health, latency, and uptime for multiple endpoints with automated incident lifecycle handling.",
@@ -102,6 +85,25 @@ const PROJECTS = [
         "Public status page with uptime percentage and incident history",
         "Uptime calculation and SLA compliance reporting",
         "Multi-endpoint health tracking without blocking main application requests"
+      ]
+    }
+  },
+
+  {
+    title: "CineCircle - Movie Gossip & Social Platform",
+    description: "A social platform for movie enthusiasts to post reviews, comment on films, and stay updated with movie gossip. Features include real-time chat, friend management, and a social feed to track friends' activities.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
+    link: "https://cine-circle-ten.vercel.app/",
+    github: "https://github.com/pratikdas018/CineCircle",
+    image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2059&auto=format&fit=crop",
+    caseStudy: {
+      challenge: "Movie communities needed one place for reviews, social updates, and instant discussion.",
+      approach: "Developed a MERN social platform with live features powered by Socket.io.",
+      impact: "Created a more engaging experience by combining feed interactions with real-time chat.",
+      highlights: [
+        "Real-time chat and activity updates",
+        "Review posting and comment threads",
+        "Responsive social feed experience"
       ]
     }
   },
@@ -181,78 +183,6 @@ const PROJECTS = [
       ]
     }
   },
-  {
-    title: "CollabTrack",
-    description: "A comprehensive real-time collaboration platform designed for student teams to track contributions, manage tasks, and monitor project progress. Built with React, Node.js, and Socket.io to ensure seamless live updates and efficient teamwork.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
-    link: "https://collab-track.vercel.app/",
-    github: "https://github.com/pratikdas018/CollabTrack",
-    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Student teams lacked transparency around ownership, deadlines, and contribution quality.",
-      approach: "Built collaboration dashboards with task tracking and real-time project state updates.",
-      impact: "Helped teams coordinate faster with clearer accountability and progress visibility.",
-      highlights: [
-        "Real-time team activity sync",
-        "Task and contribution tracking",
-        "Collaboration-focused dashboard UX"
-      ]
-    }
-  },
-  {
-    title: "TalkSy - Real-time Chat Application",
-    description: "Designed and developed a full-stack real-time chat application featuring WebSocket-based communication, secure authentication with JWT and Google OAuth, multimedia messaging, scalable chat rooms, user presence indicators, and real-time typing status.",
-    tech: ["React", "Node.js", "Socket.io", "MongoDB"],
-    link: "https://realtimetalk-frontend.onrender.com/",
-    github: "https://github.com/pratikdas018/RealTimeTalk",
-    image: "https://images.unsplash.com/photo-1611606063065-ee7946f0787a?q=80&w=2274&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Messaging needed low latency, room-based scaling, and secure multi-provider login.",
-      approach: "Implemented Socket.io chat architecture with JWT and Google OAuth authentication.",
-      impact: "Delivered responsive communication with reliable identity and presence signals.",
-      highlights: [
-        "Typing status and online presence",
-        "Room-based scalable chat model",
-        "Secure auth via JWT and OAuth"
-      ]
-    }
-  },
-  {
-    title: "Resume Shortlister (ATS Skill Match Analyzer)",
-    description: "A resume analysis tool that compares user skills with job descriptions and calculates an exact match percentage, highlighting missing and matched skills.",
-    tech: ["React", "JavaScript", "Text Analysis", "ATS Logic"],
-    link: "https://pratik-resume-shortlister.vercel.app",
-    github: "https://github.com/pratikdas018/resume-shortlister",
-    image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?q=80&w=2340&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Applicants needed fast feedback on resume fit against job descriptions.",
-      approach: "Built a text-analysis tool that calculates match score and skills gap.",
-      impact: "Provided actionable recommendations for stronger application readiness.",
-      highlights: [
-        "Exact match scoring between resume and JD",
-        "Missing and matched skill breakdown",
-        "Simple UI for quick resume evaluation"
-      ]
-    }
-  },
-  {
-    title: "TalkNex - AI Voice Assistant",
-    description: "An AI-based voice assistant similar to Google Assistant that allows users to talk via voice commands, set a custom assistant name and image, and interact naturally.",
-    tech: ["React", "Web Speech API", "JavaScript", "AI Logic"],
-    link: "#",
-    github: "https://github.com/pratikdas018/talkNex",
-    image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=2340&auto=format&fit=crop",
-    caseStudy: {
-      challenge: "Users wanted a browser-based assistant with natural voice-driven interaction.",
-      approach: "Integrated speech recognition with configurable assistant settings and commands.",
-      impact: "Enabled hands-free interaction in a lightweight, front-end focused application.",
-      highlights: [
-        "Voice command processing via Web Speech API",
-        "Custom assistant profile configuration",
-        "Extensible command interpretation logic"
-      ]
-    }
-  }
 ];
 
 const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/11Hi4y9fruHLDAkx2emkORcbSMH96R-3h";
@@ -428,11 +358,10 @@ const Navbar = ({ theme, toggleTheme }) => {
     <nav className="fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-4">
         <div
-          className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${
-            scrolled
+          className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${scrolled
               ? 'bg-white/85 dark:bg-slate-950/75 border-slate-200/80 dark:border-slate-700/80 shadow-[0_20px_50px_-30px_rgba(2,6,23,0.8)]'
               : 'bg-white/60 dark:bg-slate-950/55 border-white/50 dark:border-slate-700/55 shadow-[0_14px_40px_-28px_rgba(2,6,23,0.85)]'
-          }`}
+            }`}
         >
           <div className="pointer-events-none absolute -top-10 right-8 h-24 w-24 rounded-full bg-black/15 dark:bg-white/10 blur-2xl"></div>
           <div className="pointer-events-none absolute -bottom-12 left-8 h-24 w-24 rounded-full bg-slate-500/20 dark:bg-slate-300/10 blur-2xl"></div>
@@ -1312,16 +1241,16 @@ const Experience = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Full-Stack Web Developer Intern</h3>
+            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Next.js Developer Intern</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400">AIKING SOLUTIONS</p>
-            <p className="mt-2 text-sm font-medium text-primary">Mar 2025 - Present</p>
+            <p className="mt-2 text-sm font-medium text-primary">Mar 2026 - Present</p>
             <p className="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Worked on production-oriented full-stack modules, collaborated with mentors on clean architecture decisions, and delivered performance-focused features across frontend and backend workflows.
+              Building the company website in Next.js and delivering a Chrome extension that automates job applications through intelligent form detection and auto-fill.
             </p>
             <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Built and shipped reusable React UI components with responsive behavior.</li>
-              <li>Integrated secure APIs and database flows for real-world application use cases.</li>
-              <li>Improved debugging, optimization, and deployment reliability during development cycles.</li>
+              <li>Developing production-ready Next.js pages with routing, SEO-friendly structure, and performance-minded UI.</li>
+              <li>Engineering a job-automation Chrome extension to detect, validate, and auto-fill application fields.</li>
+              <li>Partnering with the team to ship iterative releases and maintain reliable deployments.</li>
             </ul>
             <a
               href={INTERNSHIP_DETAILS_URL}
