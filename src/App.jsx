@@ -188,7 +188,6 @@ const PROJECTS = [
 const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/11Hi4y9fruHLDAkx2emkORcbSMH96R-3h";
 
 const EMAILJS_SERVICE_ID = "service_df3o81k";
-const EMAILJS_VISITOR_TEMPLATE_ID = "template_visitor_alert";
 const EMAILJS_CONTACT_TEMPLATE_ID = "template_3cl97i5";
 const EMAILJS_PUBLIC_KEY = "EIAbfqJCZvoUsPzeX";
 const CONTACT_EMAIL = "pratikdassonu@gmail.com";
@@ -688,8 +687,8 @@ const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
 const Hero = () => {
   const [showScrollDown, setShowScrollDown] = useState(false);
 
-  const line1 = "Building Robust Web Systems".split(" ");
-  const line2 = "scalable solutions that matter.".split(" ");
+  const line1 = "Pratik Das".split(" ");
+  const line2 = "Full Stack Developer".split(" ");
 
   return (
     <section className="min-h-screen flex items-center justify-center pt-28 md:pt-32 pb-10 relative overflow-hidden">
@@ -707,18 +706,24 @@ const Hero = () => {
           {/* Picture with Badge */}
           <motion.div variants={fadeInUp} className="relative mb-8">
             <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl relative z-10">
-              {/* Place your image in the public folder as 'profile.jpg' */}
-              <img src="/profile.jpg" alt="Pratik Das" className="w-full h-full object-cover object-[center_18%] md:object-[center_22%] bg-slate-100" />
+              <img
+                src="/profile.jpg"
+                alt="Pratik Das portrait"
+                loading="eager"
+                fetchPriority="high"
+                decoding="async"
+                className="w-full h-full object-cover object-[center_18%] md:object-[center_22%] bg-slate-100"
+              />
             </div>
             <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white dark:bg-slate-800 p-1.5 rounded-full shadow-xl z-20">
               <div className="bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-xs md:text-sm font-bold px-4 py-2 rounded-full flex items-center gap-2 whitespace-nowrap">
-                Full Stack • Problem Solver
+                Full Stack Developer | Problem Solver
               </div>
             </div>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm h-6 flex items-center">
-            <Typewriter text="Hi, I'm Pratik Das" speed={100} delay={500} onComplete={() => setShowScrollDown(true)} />
+            <Typewriter text="React, Next.js, Node.js, MongoDB, PostgreSQL" speed={70} delay={250} onComplete={() => setShowScrollDown(true)} />
           </motion.div>
           <motion.h1
             variants={{
@@ -744,7 +749,7 @@ const Hero = () => {
             </span>
           </motion.h1>
           <motion.p variants={fadeInUp} className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 transition-colors">
-            I'm a Full-stack Developer specializing in the MERN stack. Currently focused on building scalable, high-performance web applications using MongoDB, Express, React, and Node.js.
+            I build scalable web applications with React, Next.js, Node.js, Express, MongoDB, and PostgreSQL. This portfolio highlights my full-stack projects, engineering experience, and the products I have shipped.
           </motion.p>
         </motion.div>
 
@@ -1047,7 +1052,10 @@ const ProjectCard = ({ project, index, onOpenCaseStudy }) => {
         <div style={{ transform: "translateZ(50px)" }} className="h-48 overflow-hidden relative">
           <img
             src={project.image}
-            alt={project.title}
+            alt={`${project.title} project preview`}
+            loading="lazy"
+            decoding="async"
+            referrerPolicy="no-referrer"
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -1487,83 +1495,6 @@ function App() {
     setTimeout(() => setToast((prev) => ({ ...prev, show: false })), 3000);
   };
 
-  useEffect(() => {
-    const trackVisitor = async () => {
-      if (sessionStorage.getItem('visitor_alert_sent')) return;
-
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        if (!response.ok) throw new Error('Failed to fetch IP data');
-
-        const data = await response.json();
-
-        const visitorInfo = {
-          ip: data.ip,
-          city: data.city,
-          region: data.region,
-          country: data.country_name,
-          isp: data.org,
-          browser: navigator.userAgent,
-          platform: navigator.platform,
-          screen: `${window.screen.width}x${window.screen.height}`,
-          referrer: document.referrer || 'Direct',
-          timestamp: new Date().toLocaleString()
-        };
-
-        const formattedMessage = `
-          🚀 New Visitor Alert!
-          
-          📍 Location: ${visitorInfo.city}, ${visitorInfo.region}, ${visitorInfo.country}
-          🌐 IP: ${visitorInfo.ip}
-          🏢 ISP: ${visitorInfo.isp}
-          
-          💻 Device:
-          OS: ${visitorInfo.platform}
-          Screen: ${visitorInfo.screen}
-          Browser: ${visitorInfo.browser}
-          
-          🕒 Time: ${visitorInfo.timestamp}
-          🔗 Referrer: ${visitorInfo.referrer}
-        `;
-
-        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_VISITOR_TEMPLATE_ID, {
-          message: formattedMessage,
-          subject: `New Visitor from ${visitorInfo.city}, ${visitorInfo.country}`,
-          ...visitorInfo
-        }, EMAILJS_PUBLIC_KEY);
-
-        sessionStorage.setItem('visitor_alert_sent', 'true');
-      } catch (error) {
-        console.error('Visitor tracking error:', error);
-      }
-    };
-
-    trackVisitor();
-  }, []);
-
-  // SEO: Inject Structured Data (JSON-LD)
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.innerHTML = JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Pratik Das",
-      "alternateName": "Pratik Das Sonu",
-      "url": window.location.origin,
-      "jobTitle": "Full Stack Developer",
-      "description": "Full Stack Developer specializing in MERN stack and Computer Science Engineering.",
-      "sameAs": [
-        "https://github.com/pratikdas018",
-        "https://www.linkedin.com/in/pratik018"
-      ]
-    });
-    document.head.appendChild(script);
-    return () => {
-      if (document.head.contains(script)) document.head.removeChild(script);
-    };
-  }, []);
-
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -1578,85 +1509,45 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <div className="bg-white dark:bg-dark min-h-screen overflow-x-hidden transition-colors duration-300">
       <CursorFollower />
-      <AnimatePresence mode="wait">
-        {isLoading ? (
-          <motion.div
-            key="loader"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-white dark:bg-dark"
-          >
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-48 h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full bg-primary"
-                  initial={{ width: "0%" }}
-                  animate={{ width: "100%" }}
-                  transition={{ duration: 1.8, ease: "easeInOut" }}
-                />
-              </div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-slate-600 dark:text-slate-400 font-medium text-sm tracking-widest uppercase"
-              >
-                Loading
-              </motion.p>
-            </div>
-          </motion.div>
-        ) : (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
-            <Navbar theme={theme} toggleTheme={toggleTheme} />
-            <main>
-              <Hero />
-              <About />
-              <Experience />
-              <Skills />
-              <Projects />
-              <Education />
-              <Contact showToast={showToast} />
-            </main>
-            <Footer />
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.35 }}
+      >
+        <Navbar theme={theme} toggleTheme={toggleTheme} />
+        <main>
+          <Hero />
+          <About />
+          <Experience />
+          <Skills />
+          <Projects />
+          <Education />
+          <Contact showToast={showToast} />
+        </main>
+        <Footer />
 
-            <AnimatePresence>
-              {toast.show && (
-                <Toast message={toast.message} type={toast.type} onClose={() => setToast((prev) => ({ ...prev, show: false }))} />
-              )}
-            </AnimatePresence>
+        <AnimatePresence>
+          {toast.show && (
+            <Toast message={toast.message} type={toast.type} onClose={() => setToast((prev) => ({ ...prev, show: false }))} />
+          )}
+        </AnimatePresence>
 
-            {showScrollTop && (
-              <motion.button
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                onClick={scrollToTop}
-                className="fixed bottom-8 right-8 p-3 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition-colors z-50"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                <ArrowUp size={24} />
-              </motion.button>
-            )}
-          </motion.div>
+        {showScrollTop && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{ opacity: 1, scale: 1 }}
+            onClick={scrollToTop}
+            className="fixed bottom-8 right-8 p-3 bg-primary text-white rounded-full shadow-lg hover:bg-blue-600 transition-colors z-50"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
+            <ArrowUp size={24} />
+          </motion.button>
         )}
-      </AnimatePresence>
+      </motion.div>
     </div>
   );
 }
