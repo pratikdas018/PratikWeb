@@ -378,7 +378,7 @@ const Navbar = ({ theme, toggleTheme }) => {
                 PD
               </span>
               <span className="hidden sm:flex flex-col leading-tight">
-                <span className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pratik Das</span>
+                <span className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pratik Chandra Das</span>
                 <span className="text-[11px] uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Full Stack</span>
               </span>
             </a>
@@ -687,7 +687,7 @@ const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
 const Hero = () => {
   const [showScrollDown, setShowScrollDown] = useState(false);
 
-  const line1 = "Pratik Das".split(" ");
+  const line1 = "Pratik Chandra Das".split(" ");
   const line2 = "Full Stack Developer".split(" ");
 
   return (
@@ -708,7 +708,7 @@ const Hero = () => {
             <div className="w-40 h-40 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-2xl relative z-10">
               <img
                 src="/profile.jpg"
-                alt="Pratik Das portrait"
+                alt="Pratik Chandra Das portrait"
                 loading="eager"
                 fetchPriority="high"
                 decoding="async"
@@ -1462,7 +1462,7 @@ const Toast = ({ message, type, onClose }) => (
 
 const Footer = () => (
   <footer className="py-8 bg-white dark:bg-dark text-center text-slate-500 dark:text-slate-600 text-sm transition-colors">
-    <p>Designed & Built by Pratik Das</p>
+    <p>Designed & Built by Pratik Chandra Das</p>
   </footer>
 );
 
