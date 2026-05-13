@@ -67,6 +67,55 @@ const EDUCATION = [
 const PROJECTS = [
 
   {
+  title: "CodeSight — Interactive Code Visualization Desktop IDE",
+  description: "A modern multi-language desktop IDE that visualizes code execution line-by-line with live memory tracking, stack visualization, execution playback, and beginner-friendly explanations.",
+  tech: [
+    "Electron",
+    "React",
+    "TypeScript",
+    "Node.js",
+    "Docker",
+    "Supabase",
+    "PostgreSQL",
+    "Monaco Editor",
+    "Tailwind CSS",
+    "Framer Motion"
+  ],
+  link: "https://github.com/pratikdas018/codeSight/releases/tag/v1.0.0",
+  github: "https://github.com/pratikdas018/codeSight",
+  image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2018&auto=format&fit=crop",
+  caseStudy: {
+    challenge: "Beginner developers often struggle to understand how code executes internally, including variable changes, stack behavior, loops, recursion, and memory flow across different programming languages.",
+    
+    approach: "Built a cross-platform Electron desktop application that executes and visualizes code step-by-step using a multi-language Dockerized runtime engine. Designed an educational visualization system with Monaco Editor integration, stack and heap visualization, execution playback controls, and contextual plain-English explanations for each execution step.",
+    
+    impact: "Created an interactive learning-focused IDE that helps developers visually understand runtime execution, memory behavior, and algorithm flow across multiple programming languages in a beginner-friendly environment.",
+    
+    highlights: [
+      "Built a cross-platform Electron desktop IDE with production-ready packaging and standalone executable distribution",
+      
+      "Implemented multi-language execution support for C, C++, Java, JavaScript, and Python using isolated Docker-based runtime containers",
+      
+      "Designed an interactive step-by-step execution visualizer with stack tracking, heap/memory visualization, variable state updates, and execution timelines",
+      
+      "Integrated Monaco Editor with dynamic syntax highlighting, execution line tracking, and smooth runtime synchronization",
+      
+      "Created a secure sandboxed execution engine with Docker isolation, timeout protection, stdin support, and process monitoring",
+      
+      "Developed a responsive IDE-style UI optimized for laptops, ultrawide monitors, and desktop environments using Tailwind CSS and Framer Motion",
+      
+      "Implemented execution playback controls including play, pause, step-forward, step-backward, reset, and speed adjustment",
+      
+      "Added Supabase PostgreSQL integration for authentication, snippet storage, execution history, and cloud-based persistence",
+      
+      "Built a beginner-friendly explanation system that describes code execution and memory changes in plain English during runtime",
+      
+      "Packaged and distributed the desktop application using Electron Builder with GitHub release deployment workflow"
+    ]
+  }
+},
+
+  {
     title: "API Monitoring & Incident Response Platform",
     description: "A distributed API monitoring platform that continuously tracks service health, latency, and uptime for multiple endpoints with automated incident lifecycle handling.",
     tech: ["Next.js", "Node.js", "MongoDB", "Redis", "BullMQ", "Tailwind CSS", "Nodemailer"],
@@ -358,8 +407,8 @@ const Navbar = ({ theme, toggleTheme }) => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-4">
         <div
           className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${scrolled
-              ? 'bg-white/85 dark:bg-slate-950/75 border-slate-200/80 dark:border-slate-700/80 shadow-[0_20px_50px_-30px_rgba(2,6,23,0.8)]'
-              : 'bg-white/60 dark:bg-slate-950/55 border-white/50 dark:border-slate-700/55 shadow-[0_14px_40px_-28px_rgba(2,6,23,0.85)]'
+            ? 'bg-white/85 dark:bg-slate-950/75 border-slate-200/80 dark:border-slate-700/80 shadow-[0_20px_50px_-30px_rgba(2,6,23,0.8)]'
+            : 'bg-white/60 dark:bg-slate-950/55 border-white/50 dark:border-slate-700/55 shadow-[0_14px_40px_-28px_rgba(2,6,23,0.85)]'
             }`}
         >
           <div className="pointer-events-none absolute -top-10 right-8 h-24 w-24 rounded-full bg-black/15 dark:bg-white/10 blur-2xl"></div>
