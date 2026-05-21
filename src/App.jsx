@@ -81,7 +81,7 @@ const PROJECTS = [
     "Tailwind CSS",
     "Framer Motion"
   ],
-  link: "https://github.com/pratikdas018/codeSight/releases/tag/v1.0.0",
+  link: "https://github.com/pratikdas018/codeSight/releases/tag/v1.0.3",
   github: "https://github.com/pratikdas018/codeSight",
   image: "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=2018&auto=format&fit=crop",
   caseStudy: {
