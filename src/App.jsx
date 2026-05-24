@@ -772,7 +772,7 @@ const Hero = () => {
           </motion.div>
 
           <motion.div variants={fadeInUp} className="text-primary font-semibold mb-4 tracking-wide uppercase text-sm h-6 flex items-center">
-            <Typewriter text="React, Next.js, Node.js, MongoDB, PostgreSQL" speed={70} delay={250} onComplete={() => setShowScrollDown(true)} />
+            <Typewriter text="React.JS, Next.js, Node.js, MongoDB, PostgreSQL" speed={70} delay={250} onComplete={() => setShowScrollDown(true)} />
           </motion.div>
           <motion.h1
             variants={{
