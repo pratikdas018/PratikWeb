@@ -827,18 +827,25 @@ const Hero = () => {
 };
 
 const About = () => {
+  const aboutStats = [
+    { value: "7+", label: "Projects Built" },
+    { value: "3", label: "Databases Mastered" },
+    { value: "7.54/10", label: "CGPA" },
+    { value: "Open", label: "Full-time SDE & Internships" }
+  ];
+
   return (
-    <section id="about" className="py-10 bg-white dark:bg-dark transition-colors">
+    <section id="about" className="py-12 bg-white dark:bg-dark transition-colors">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="grid md:grid-cols-2 gap-12 items-center"
+          className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-center"
         >
           <div className="relative group">
-            <div className="absolute -inset-2 bg-slate-800 rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
+            <div className="absolute -inset-2 rounded-2xl bg-primary/25 blur-xl opacity-70 group-hover:opacity-100 transition duration-500"></div>
             <div className="relative aspect-square rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=1000&auto=format&fit=crop"
@@ -847,37 +854,148 @@ const About = () => {
               />
             </div>
           </div>
-          <div>
-            <h2 className="text-4xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3 transition-colors">
-              About Me
-              <span className="w-20 h-1 bg-primary rounded-full"></span>
-            </h2>
-            <div className="space-y-6 text-lg text-slate-600 dark:text-slate-400 leading-relaxed transition-colors">
-              <p>
-                I’m a <span className="font-semibold text-slate-900 dark:text-white">Full Stack Developer</span> specializing in the MERN stack, passionate about building fast, scalable, and user-focused web applications.
-              </p>
-              <p>
-                I enjoy transforming complex ideas into clean, efficient, and maintainable solutions. From designing secure backend APIs to developing intuitive frontend interfaces, I focus on creating products that deliver both performance and great user experience.
-              </p>
-              <p>
-                Currently, I’m focused on building impactful projects, improving system scalability, and continuously learning modern technologies to become a better engineer every day.
-              </p>
+
+          <div className="min-w-0">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/25 bg-emerald-500/10 px-3 py-1.5 text-sm font-medium text-emerald-600 dark:text-emerald-300">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+              </span>
+              Open to opportunities
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
-              <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border-l-4 border-primary shadow-sm">
-                <h4 className="font-bold text-slate-900 dark:text-white">Engineering Excellence</h4>
-                <p className="text-sm text-slate-500">Scalable & efficient solutions</p>
-              </div>
-              <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg border-l-4 border-slate-500 shadow-sm">
-                <h4 className="font-bold text-slate-900 dark:text-white">Full Stack Expertise</h4>
-                <p className="text-sm text-slate-500">Seamless end-to-end execution</p>
-              </div>
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <h2 className="text-4xl font-bold text-slate-900 dark:text-white transition-colors">
+                About Me
+              </h2>
+              <span className="h-1 w-16 rounded-full bg-primary"></span>
+            </div>
+
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed transition-colors">
+              I'm Pratik Chandra Das, a final-year B.Tech CSE student from Kolkata who builds full-stack apps that solve real problems — not just tutorial clones. I work across the entire stack: React.js, Next.js, Node.js, TypeScript, PostgreSQL, and MongoDB, with a focus on clean architecture and reliable APIs. Right now I'm actively looking for full-time SDE roles or internships where I can ship production-grade software with a strong team.
+            </p>
+
+            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {aboutStats.map((stat) => (
+                <div
+                  key={stat.label}
+                  className={`rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/70 p-5 shadow-sm transition-colors ${stat.value === "Open" ? "about-open-stat" : ""}`}
+                >
+                  <p className="about-stat-value text-2xl font-bold text-slate-900 dark:text-white">{stat.value}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-slate-400">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
         </motion.div>
       </div>
     </section>
+  );
+};
+
+const SKILL_ICON_MAP = {
+  C: { slug: "c", color: "A8B9CC" },
+  "C++": { slug: "cplusplus", color: "00599C" },
+  "JavaScript (ES6+)": { slug: "javascript", color: "F7DF1E" },
+  "Next.js": { slug: "nextdotjs", color: "FFFFFF" },
+  TypeScript: { slug: "typescript", color: "3178C6" },
+  "React.js": { slug: "react", color: "61DAFB" },
+  HTML5: { slug: "html5", color: "E34F26" },
+  CSS3: { slug: "css", color: "663399" },
+  "Node.js": { slug: "nodedotjs", color: "339933" },
+  "Express.js": { slug: "express", color: "FFFFFF" },
+  MongoDB: { slug: "mongodb", color: "47A248" },
+  PostgreSQL: { slug: "postgresql", color: "4169E1" },
+  Git: { slug: "git", color: "F05032" },
+  GitHub: { slug: "github", color: "FFFFFF" },
+  Postman: { slug: "postman", color: "FF6C37" },
+  "VS Code": { slug: "visualstudiocode", color: "007ACC" },
+  Firebase: { slug: "firebase", color: "FFCA28" },
+  Vercel: { slug: "vercel", color: "FFFFFF" },
+  Render: { slug: "render", color: "46E3B7" },
+  "Google Cloud": { slug: "googlecloud", color: "4285F4" },
+  Expo: { slug: "expo", color: "FFFFFF" }
+};
+
+const FALLBACK_SKILL_ICONS = {
+  "REST API": "api",
+  "Auth Workflows": "auth",
+  "API Debugging": "debug",
+  SQL: "database"
+};
+
+const FallbackSkillIcon = ({ type, className = "" }) => {
+  if (type === "auth") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="11" width="14" height="10" rx="2" />
+        <path d="M8 11V7a4 4 0 0 1 8 0v4" />
+        <path d="M12 15v2" />
+      </svg>
+    );
+  }
+
+  if (type === "debug") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 8h8" />
+        <path d="M8 16h8" />
+        <path d="M9 3v3" />
+        <path d="M15 3v3" />
+        <path d="M9 18v3" />
+        <path d="M15 18v3" />
+        <rect x="6" y="6" width="12" height="12" rx="3" />
+      </svg>
+    );
+  }
+
+  if (type === "database") {
+    return (
+      <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="5" rx="7" ry="3" />
+        <path d="M5 5v6c0 1.7 3.1 3 7 3s7-1.3 7-3V5" />
+        <path d="M5 11v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 8 3 12l4 4" />
+      <path d="m17 8 4 4-4 4" />
+      <path d="M14 4 10 20" />
+    </svg>
+  );
+};
+
+const SkillIcon = ({ skill }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const iconConfig = SKILL_ICON_MAP[skill];
+  const fallbackType = FALLBACK_SKILL_ICONS[skill];
+  const iconColor = isHovered ? iconConfig?.color : "94A3B8";
+
+  return (
+    <span
+      className="group flex items-center gap-2 rounded-full px-3 py-2 text-sm text-slate-600 dark:text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-700/60 dark:hover:text-white"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {iconConfig ? (
+        <img
+          src={`https://cdn.simpleicons.org/${iconConfig.slug}/${iconColor}`}
+          alt=""
+          aria-hidden="true"
+          className="h-5 w-5 shrink-0"
+          loading="lazy"
+        />
+      ) : (
+        <FallbackSkillIcon
+          type={fallbackType}
+          className="h-5 w-5 shrink-0 text-slate-400 transition-colors group-hover:text-primary"
+        />
+      )}
+      <span>{skill}</span>
+    </span>
   );
 };
 
@@ -917,11 +1035,10 @@ const Skills = () => {
             >
               {iconMap[category]}
               <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-4 transition-colors">{category}</h3>
-              <ul className="space-y-2">
+              <ul className="space-y-1.5">
                 {items.map((skill) => (
-                  <li key={skill} className="flex items-center text-slate-600 dark:text-slate-400 text-sm transition-colors">
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full mr-2"></span>
-                    {skill}
+                  <li key={skill}>
+                    <SkillIcon skill={skill} />
                   </li>
                 ))}
               </ul>
@@ -1527,8 +1644,10 @@ function App() {
     const root = window.document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
+      root.classList.remove('light');
     } else {
       root.classList.remove('dark');
+      root.classList.add('light');
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
@@ -1602,4 +1721,5 @@ function App() {
 }
 
 export default App;
+
 
