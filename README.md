@@ -1,16 +1,16 @@
-# 🚀 Pratik Das | MERN Stack Developer Portfolio
+#  Pratik Das | MERN Stack Developer Portfolio
 
 Welcome to my personal portfolio website! This project showcases my skills, experience, and projects as a **MERN Stack / Full-Stack Web Developer**, built with a clean UI and modern web technologies.
 
 ---
 
-## 👋 About Me
+##  About Me
 
 I am **Pratik Das**, a passionate **MERN Stack Developer** focused on building **secure, scalable, and high-performance web applications**. I enjoy solving real-world problems through clean code, thoughtful architecture, and continuous learning.
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 
 **Frontend:**
 
@@ -36,7 +36,7 @@ I am **Pratik Das**, a passionate **MERN Stack Developer** focused on building *
 
 ---
 
-## ✨ Features
+##  Features
 
 * Responsive and modern UI
 * Dark / Light mode support
@@ -48,9 +48,9 @@ I am **Pratik Das**, a passionate **MERN Stack Developer** focused on building *
 
 ---
 
-## 📂 Featured Projects
+##  Featured Projects
 
-### 🎓 Learning Management System (LMS)
+###  Learning Management System (LMS)
 
 * Secure authentication with role-based access (Student / Teacher / Admin)
 * Course enrollment and progress tracking
@@ -102,7 +102,7 @@ Open `http://localhost:5173` in your browser.
 
 ---
 
-## 📬 Contact Me
+##  Contact Me
 
 * **Email:** [pratikdassonu@gmail.com](mailto:pratikdassonu@gmail.com)
 * **LinkedIn:** [https://www.linkedin.com/in/pratik018](https://www.linkedin.com/in/pratik018)
@@ -110,10 +110,10 @@ Open `http://localhost:5173` in your browser.
 
 ---
 
-## 📄 License
+##  License
 
 This project is open-source and available for learning and personal use.
 
 ---
 
-⭐ If you like this portfolio, feel free to fork it or give it a star!
+ If you like this portfolio, feel free to fork it or give it a star!
