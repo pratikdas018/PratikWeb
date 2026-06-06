@@ -7,6 +7,7 @@ import {
   Linkedin,
   Mail,
   ExternalLink,
+  Briefcase,
   Code2,
   Database,
   Layout,
@@ -403,10 +404,10 @@ const Navbar = ({ theme, toggleTheme }) => {
   };
 
   return (
-    <nav className="fixed inset-x-0 top-0 z-50">
+    <nav className="site-nav fixed inset-x-0 top-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 pt-4">
         <div
-          className={`relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${scrolled
+          className={`site-nav-panel relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-300 ${scrolled
             ? 'bg-white/85 dark:bg-slate-950/75 border-slate-200/80 dark:border-slate-700/80 shadow-[0_20px_50px_-30px_rgba(2,6,23,0.8)]'
             : 'bg-white/60 dark:bg-slate-950/55 border-white/50 dark:border-slate-700/55 shadow-[0_14px_40px_-28px_rgba(2,6,23,0.85)]'
             }`}
@@ -421,18 +422,18 @@ const Navbar = ({ theme, toggleTheme }) => {
                 e.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="group flex items-center gap-3 shrink-0"
+              className="group site-brand flex items-center gap-3 shrink-0"
             >
-              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white font-bold tracking-wide shadow-lg shadow-black/30 ring-1 ring-white/10 dark:ring-white/20">
+              <span className="site-brand-mark flex h-10 w-10 items-center justify-center rounded-xl bg-black text-white font-bold tracking-wide shadow-lg shadow-black/30 ring-1 ring-white/10 dark:ring-white/20">
                 PD
               </span>
               <span className="hidden sm:flex flex-col leading-tight">
-                <span className="text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pratik Chandra Das</span>
-                <span className="text-[11px] uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Full Stack</span>
+                <span className="site-brand-name text-sm font-semibold text-slate-900 dark:text-white group-hover:text-primary transition-colors">Pratik Chandra Das</span>
+                <span className="site-brand-role text-[11px] uppercase tracking-[0.22em] text-slate-500 dark:text-slate-400">Full Stack</span>
               </span>
             </a>
 
-            <div className="hidden xl:flex items-center gap-1 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/60 px-2 py-1">
+            <div className="site-nav-links hidden xl:flex items-center gap-1 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/80 dark:bg-slate-900/60 px-2 py-1">
               {NAV_LINKS.map((link) => {
                 const isActive = activeSection === link.href.substring(1);
                 return (
@@ -458,7 +459,7 @@ const Navbar = ({ theme, toggleTheme }) => {
             </div>
 
             <div className="flex items-center gap-2 md:gap-3">
-              <div className="hidden lg:flex items-center gap-2 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-900/55 px-2 py-1">
+              <div className="site-nav-cta-group hidden lg:flex items-center gap-2 rounded-full border border-slate-200/80 dark:border-slate-700/70 bg-white/70 dark:bg-slate-900/55 px-2 py-1">
                 <a href="/pratik's Resume.pdf" download className="flex items-center gap-2 px-3 py-1.5 text-slate-700 dark:text-slate-200 rounded-full text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
                   <Download size={15} />
                   <span>Resume</span>
@@ -493,14 +494,14 @@ const Navbar = ({ theme, toggleTheme }) => {
               <motion.button
                 onClick={toggleTheme}
                 whileTap={{ scale: 0.92 }}
-                className="p-2.5 rounded-full bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors border border-slate-200/80 dark:border-slate-700/80"
+                className="site-theme-button p-2.5 rounded-full bg-slate-100/90 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:text-primary transition-colors border border-slate-200/80 dark:border-slate-700/80"
                 aria-label="Toggle Theme"
               >
                 {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
               </motion.button>
 
               <button
-                className="xl:hidden text-slate-900 dark:text-white hover:text-primary transition-colors p-2 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80"
+                className="site-menu-button xl:hidden text-slate-900 dark:text-white hover:text-primary transition-colors p-2 rounded-full border border-slate-200/80 dark:border-slate-700/80 bg-white/80 dark:bg-slate-900/80"
                 onClick={() => setIsOpen(!isOpen)}
                 aria-label="Toggle menu"
               >
@@ -517,7 +518,7 @@ const Navbar = ({ theme, toggleTheme }) => {
               animate={{ opacity: 1, y: 0, height: 'auto' }}
               exit={{ opacity: 0, y: -8, height: 0 }}
               transition={{ duration: 0.28, ease: 'easeOut' }}
-              className="xl:hidden mt-2 overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/95 dark:bg-slate-950/90 backdrop-blur-md shadow-lg"
+              className="site-mobile-menu xl:hidden mt-2 overflow-hidden rounded-2xl border border-slate-200/80 dark:border-slate-700/80 bg-white/95 dark:bg-slate-950/90 backdrop-blur-md shadow-lg"
             >
               <div className="p-4">
                 <div className="grid gap-2">
@@ -1397,43 +1398,68 @@ const Experience = () => {
   return (
     <section id="experience" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
       <div className="max-w-6xl mx-auto px-6">
-        <motion.h2
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl font-bold text-slate-900 dark:text-white mb-12 flex items-center gap-2 transition-colors"
-        >
-          Work Experience
-        </motion.h2>
+        <div className="experience-title-row mb-12 flex items-center gap-4">
+          <motion.h2
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-3xl font-bold text-slate-900 dark:text-white flex items-center gap-2 transition-colors"
+          >
+            Work Experience
+          </motion.h2>
+          <span className="experience-title-line" aria-hidden="true"></span>
+        </div>
 
-        <div className="grid grid-cols-1 gap-6">
+        <div className="experience-list grid grid-cols-1 gap-6 relative">
+          <span className="experience-timeline-line" aria-hidden="true"></span>
           <motion.div
-            className="p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md"
+            className="experience-entry relative"
             variants={fadeInUp}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Next.js Developer Intern</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400">AIKING SOLUTIONS</p>
-            <p className="mt-2 text-sm font-medium text-primary">Mar 2026 - Present</p>
-            <p className="mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              Building the company website in Next.js and delivering a Chrome extension that automates job applications through intelligent form detection and auto-fill.
-            </p>
-            <ul className="mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
-              <li>Developing production-ready Next.js pages with routing, SEO-friendly structure, and performance-minded UI.</li>
-              <li>Engineering a job-automation Chrome extension to detect, validate, and auto-fill application fields.</li>
-              <li>Partnering with the team to ship iterative releases and maintain reliable deployments.</li>
-            </ul>
-            <a
-              href={INTERNSHIP_DETAILS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
-            >
-              View Details
-            </a>
+            <div className="experience-timeline-dot" aria-hidden="true">
+              <Briefcase size={22} />
+            </div>
+
+            <div className="experience-card p-6 rounded-2xl bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 shadow-md">
+              <span className="experience-card-accent" aria-hidden="true"></span>
+              <div className="experience-card-header">
+                <div>
+                  <h3 className="experience-role text-lg font-semibold text-slate-900 dark:text-white">Next.js Developer Intern</h3>
+                  <p className="experience-company text-sm text-slate-500 dark:text-slate-400">AIKING SOLUTIONS</p>
+                </div>
+                <p className="experience-date-pill mt-2 text-sm font-medium text-primary">Mar 2026 - Present</p>
+              </div>
+              <p className="experience-summary mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                Building the company website in Next.js and delivering a Chrome extension that automates job applications through intelligent form detection and auto-fill.
+              </p>
+              <ul className="experience-highlights mt-3 text-sm text-slate-600 dark:text-slate-300 list-disc list-inside space-y-1">
+                <li className="experience-highlight">
+                  <CheckCircle className="experience-check-icon" size={20} aria-hidden="true" />
+                  <span>Developing production-ready Next.js pages with routing, SEO-friendly structure, and performance-minded UI.</span>
+                </li>
+                <li className="experience-highlight">
+                  <CheckCircle className="experience-check-icon" size={20} aria-hidden="true" />
+                  <span>Engineering a job-automation Chrome extension to detect, validate, and auto-fill application fields.</span>
+                </li>
+                <li className="experience-highlight">
+                  <CheckCircle className="experience-check-icon" size={20} aria-hidden="true" />
+                  <span>Partnering with the team to ship iterative releases and maintain reliable deployments.</span>
+                </li>
+              </ul>
+              <a
+                href={INTERNSHIP_DETAILS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="experience-detail-link mt-4 inline-flex items-center gap-2 px-3 py-1.5 text-sm rounded-md border border-primary text-primary hover:bg-blue-50 dark:hover:bg-slate-800 transition"
+              >
+                View Details
+                <ExternalLink size={16} aria-hidden="true" />
+              </a>
+            </div>
           </motion.div>
         </div>
       </div>
