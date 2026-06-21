@@ -116,6 +116,32 @@ const PROJECTS = [
   }
 },
 
+{
+  title: "SnapScroll - Long Screenshot Capture Tool",
+  description: "A Windows desktop application that enables users to capture seamless long scrolling screenshots across websites, documents, PDFs, chat applications, code editors, and any scrollable content through intelligent frame capture and stitching.",
+  tech: [".NET 8", "C#", "WPF", "MVVM", "Win32 API", "GDI+", "XAML"],
+  link: "https://snapscroll-landing.vercel.app",
+  github: "https://github.com/pratikdas018/Screenshot_app",
+  image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop",
+  caseStudy: {
+    challenge: "Traditional screenshot tools are limited to the visible screen area, making it difficult to capture long webpages, documentation, chats, PDFs, and code files in a single image without manual stitching.",
+    approach: "Built a native Windows desktop application that allows users to select any screen region, continuously capture viewport changes during scrolling, intelligently detect overlapping content between frames, and automatically stitch frames into a single high-quality long screenshot.",
+    impact: "Simplified capturing long-form content across any application by generating seamless scrolling screenshots with a single workflow, eliminating the need for manual image editing or third-party online tools.",
+    highlights: [
+      "Region-based screen selection with drag-and-capture interface",
+      "Global keyboard shortcuts for starting and stopping capture sessions",
+      "Continuous frame capture while users scroll manually",
+      "Intelligent frame stitching with overlap detection and duplicate removal",
+      "Supports websites, PDFs, chat applications, IDEs, and documentation pages",
+      "Real-time capture overlay showing recording status and session details",
+      "Automatic export of high-resolution long screenshots",
+      "MVVM architecture with modular services and maintainable codebase",
+      "Optimized image processing pipeline for handling large captures",
+      "Native Windows desktop experience built with WPF and .NET 8"
+    ]
+  }
+},
+
   {
     title: "API Monitoring & Incident Response Platform",
     description: "A distributed API monitoring platform that continuously tracks service health, latency, and uptime for multiple endpoints with automated incident lifecycle handling.",
