@@ -104,7 +104,7 @@ Open `http://localhost:5173` in your browser.
 
 ##  Contact Me
 
-* **Email:** [pratikdassonu@gmail.com](mailto:pratikdassonu@gmail.com)
+* **Email:** [developedwithpratik@gmail.com](mailto:developedwithpratik@gmail.com)
 * **LinkedIn:** [https://www.linkedin.com/in/pratik018](https://www.linkedin.com/in/pratik018)
 * **GitHub:** [https://github.com/pratikdas018](https://github.com/pratikdas018)
 

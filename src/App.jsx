@@ -266,7 +266,7 @@ const INTERNSHIP_DETAILS_URL = "https://drive.google.com/drive/folders/11Hi4y9fr
 const EMAILJS_SERVICE_ID = "service_df3o81k";
 const EMAILJS_CONTACT_TEMPLATE_ID = "template_3cl97i5";
 const EMAILJS_PUBLIC_KEY = "EIAbfqJCZvoUsPzeX";
-const CONTACT_EMAIL = "pratikdassonu@gmail.com";
+const CONTACT_EMAIL = "developedwithpratik@gmail.com";
 const GMAIL_COMPOSE_URL = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(CONTACT_EMAIL)}`;
 
 // --- Animation Variants ---
