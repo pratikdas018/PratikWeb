@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { Suspense, lazy, useState, useEffect, useMemo, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -23,18 +23,84 @@ import {
   Search,
   CheckCircle,
   AlertCircle,
-  Loader2
+  Loader2,
+  Star,
+  Users,
+  GitPullRequest,
+  CalendarDays,
+  Trophy,
+  Award,
+  BadgeCheck,
+  BookOpen,
+  Flame
 } from 'lucide-react';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
 
 // --- Data Configuration ---
+
+const PortfolioAssistant = lazy(() => import('./components/PortfolioAssistant'));
+const GitHubCalendar = lazy(() => import('react-github-calendar').then((module) => ({ default: module.GitHubCalendar })));
 
 const NAV_LINKS = [
   { name: 'About', href: '#about' },
   { name: 'Experience', href: '#experience' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
+  { name: 'GitHub', href: '#github' },
   { name: 'Education', href: '#education' },
+  { name: 'Certifications', href: '#certifications' },
   { name: 'Contact', href: '#contact' },
+];
+
+const GITHUB_USERNAME = "pratikdas018";
+const GITHUB_PROFILE_URL = `https://github.com/${GITHUB_USERNAME}`;
+
+const LANGUAGE_STATS = [
+  { name: "JavaScript", percentage: 34, color: "#f7df1e" },
+  { name: "TypeScript", percentage: 21, color: "#3178c6" },
+  { name: "React", percentage: 18, color: "#61dafb" },
+  { name: "Node.js", percentage: 11, color: "#3c873a" },
+  { name: "HTML", percentage: 7, color: "#e34f26" },
+  { name: "CSS", percentage: 6, color: "#1572b6" },
+  { name: "Python", percentage: 3, color: "#3776ab" }
+];
+
+const GITHUB_ACHIEVEMENTS = [
+  { name: "Code Explorer", detail: "Consistent project shipping", icon: Trophy },
+  { name: "Pull Request Builder", detail: "Collaborative development", icon: GitPullRequest },
+  { name: "Repository Curator", detail: "Open-source portfolio", icon: BookOpen },
+  { name: "Streak Keeper", detail: "Coding consistency", icon: Flame }
+];
+
+const CERTIFICATIONS = [
+  {
+    title: "Full Stack Web Development",
+    issuer: "Euphoria GenX",
+    date: "March 2025",
+    credentialId: "",
+    logoText: "EG",
+    skills: ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "MongoDB"],
+    link: "https://drive.google.com/file/d/1oZjcWIm1n4siJIHCCMGYYaTQ2lAji1BS/view?usp=drive_link"
+  },
+  {
+    title: "Zero Trust Cloud Security Virtual Internship",
+    issuer: "EduSkills x Zscaler",
+    date: "April - June 2024",
+    credentialId: "",
+    logoText: "ZS",
+    skills: ["Zero Trust", "Cloud Security", "Networking", "Cyber Security"],
+    link: "https://drive.google.com/file/d/18zfoSugOMfJggfhAv5QmwmRH7r7rTQ6V/view?usp=drive_link"
+  },
+  {
+    title: "AI-ML Virtual Internship",
+    issuer: "EduSkills x AWS Academy",
+    date: "January - March 2024",
+    credentialId: "",
+    logoText: "AWS",
+    skills: ["Artificial Intelligence", "Machine Learning", "AWS", "Python"],
+    link: "https://drive.google.com/file/d/1L807-us8YR_spDFD1fpHJdTLpqvIT_Sd/view?usp=drive_link"
+  }
 ];
 
 const SKILLS = {
@@ -164,6 +230,34 @@ const PROJECTS = [
       ]
     }
   },
+
+  {
+  title: "Drop Day - Flash-Sale Storefront with Live Inventory Contention",
+  description: "A realistic flash-sale storefront for limited-stock product drops that simulates real-world inventory constraints — timed releases, 60-second reservation holds, stock contention between competing shoppers, and graceful failure handling — all enforced by a server-authoritative engine.",
+  tech: ["Next.js 14", "React", "TypeScript", "Zustand", "Tailwind CSS", "Route Handlers", "pnpm"],
+  link: "https://dropday-live.vercel.app",
+  github: "https://github.com/pratikdas018/DropDay",
+  image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop",
+  caseStudy: {
+    challenge: "High-demand commerce platforms must manage contested, time-based state under pressure: products releasing on schedule, temporary reservations that expire, multiple shoppers racing for the same limited stock, and failures like holds lapsing mid-checkout — all without ever showing the user a stale or dishonest view of inventory.",
+    approach: "Built a storefront around a single server-side source of truth: an in-memory engine, exposed through real Next.js Route Handlers behind one clean API boundary. Hold expiry, stock contention from simulated shoppers, and a server-authoritative clock are all enforced server-side, while a Zustand store reconciles the UI against the server via polling, drift correction, and cross-tab sync. The mock API deliberately injects latency and transient failures to force robust unhappy-path handling.",
+    impact: "Delivered a polished, responsive storefront that stays truthful under contested, real-time conditions — holds never silently disappear, expired reservations reconcile gracefully, and mid-checkout failures are explained cleanly. The clean API boundary means the mock backend could be swapped for a real server without touching the UI.",
+    highlights: [
+      "Server-authoritative engine as the single source of truth for all time-based, contested state",
+      "60-second reservation holds with per-item live countdowns, enforced server-side via a lazy expiry sweep",
+      "Server-synced clock with drift correction so countdowns stay accurate regardless of device time",
+      "Wait-for-server hold placement to prevent lying about contested inventory; optimistic release for responsiveness",
+      "Simulated competing shoppers that consume live stock over time, creating genuine scarcity",
+      "Clean unhappy-path handling: hold expiry, out-of-stock, and mid-checkout failure all explained gracefully",
+      "Hype Meter wildcard — live watcher counts that drift over time and drive urgency styling",
+      "Panic Mode wildcard — urgent visual state in a hold's final 10 seconds, respecting reduced-motion",
+      "Second-Chance Queue wildcard — FIFO waitlist granting sold-out stock an exclusive 15-second claim window",
+      "Cross-tab synchronization via localStorage so multiple tabs converge on the same server truth",
+      "Single clean API boundary designed to be swappable for a real backend untouched",
+      "TypeScript throughout, with required loading, error, and empty states across the storefront"
+    ]
+  }
+},
 
   {
     title: "CineCircle - Movie Gossip & Social Platform",
@@ -490,31 +584,6 @@ const Navbar = ({ theme, toggleTheme }) => {
                   <Download size={15} />
                   <span>Resume</span>
                 </a>
-                <a href="#projects" onClick={(e) => handleNavClick(e, '#projects')} className="flex items-center gap-2 px-3 py-1.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-full font-medium hover:bg-slate-700 dark:hover:bg-slate-200 transition-all text-sm shadow-lg shadow-slate-900/20 dark:shadow-white/20">
-                  <Eye size={15} />
-                  <span>Projects</span>
-                </a>
-              </div>
-
-              <div className="hidden lg:flex items-center gap-2 border-l border-slate-200 dark:border-slate-700 pl-3">
-                <NavbarSocialIcon
-                  href="https://github.com/pratikdas018"
-                  label="GitHub"
-                  icon={Github}
-                  delay={0.05}
-                />
-                <NavbarSocialIcon
-                  href="https://www.linkedin.com/in/pratik018"
-                  label="LinkedIn"
-                  icon={Linkedin}
-                  delay={0.1}
-                />
-                <NavbarSocialIcon
-                  href={GMAIL_COMPOSE_URL}
-                  label="Email Pratik"
-                  icon={Mail}
-                  delay={0.15}
-                />
               </div>
 
               <motion.button
@@ -597,6 +666,36 @@ const Navbar = ({ theme, toggleTheme }) => {
   );
 };
 
+class BackgroundParticle {
+  constructor(canvas, ctx) {
+    this.canvas = canvas;
+    this.ctx = ctx;
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.vx = (Math.random() - 0.5) * 0.3;
+    this.vy = (Math.random() - 0.5) * 0.3;
+    this.size = Math.random() * 2 + 0.5;
+    this.opacity = Math.random() * 0.5 + 0.1;
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    if (this.x < 0) this.x = this.canvas.width;
+    if (this.x > this.canvas.width) this.x = 0;
+    if (this.y < 0) this.y = this.canvas.height;
+    if (this.y > this.canvas.height) this.y = 0;
+  }
+
+  draw() {
+    this.ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`;
+    this.ctx.beginPath();
+    this.ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    this.ctx.fill();
+  }
+}
+
 const ParticleBackground = () => {
   const canvasRef = useRef(null);
 
@@ -614,39 +713,11 @@ const ParticleBackground = () => {
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.vx = (Math.random() - 0.5) * 0.3;
-        this.vy = (Math.random() - 0.5) * 0.3;
-        this.size = Math.random() * 2 + 0.5;
-        this.opacity = Math.random() * 0.5 + 0.1;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.x < 0) this.x = canvas.width;
-        if (this.x > canvas.width) this.x = 0;
-        if (this.y < 0) this.y = canvas.height;
-        if (this.y > canvas.height) this.y = 0;
-      }
-
-      draw() {
-        ctx.fillStyle = `rgba(99, 102, 241, ${this.opacity})`; // Indigo-500
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
     const init = () => {
       particles = [];
       const particleCount = Math.floor(window.innerWidth / 15);
       for (let i = 0; i < particleCount; i++) {
-        particles.push(new Particle());
+        particles.push(new BackgroundParticle(canvas, ctx));
       }
     };
 
@@ -672,7 +743,9 @@ const ParticleBackground = () => {
 };
 
 const CursorFollower = () => {
-  const [enabled, setEnabled] = useState(false);
+  const [enabled] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches
+  ));
   const [visible, setVisible] = useState(false);
   const [pressed, setPressed] = useState(false);
   const dotX = useMotionValue(-100);
@@ -682,7 +755,6 @@ const CursorFollower = () => {
 
   useEffect(() => {
     const finePointer = window.matchMedia('(pointer: fine)').matches;
-    setEnabled(finePointer);
     if (!finePointer) return;
 
     const handleMove = (e) => {
@@ -746,7 +818,7 @@ const Typewriter = ({ text, speed = 100, delay = 0, onComplete }) => {
       return () => clearInterval(interval);
     }, delay);
     return () => clearTimeout(startTimeout);
-  }, [text, speed, delay]);
+  }, [text, speed, delay, onComplete]);
 
   return (
     <span className="inline-flex items-center">
@@ -1420,6 +1492,271 @@ const Projects = () => {
   );
 };
 
+const AnimatedNumber = ({ value, suffix = "" }) => {
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { stiffness: 90, damping: 22 });
+  const rounded = useTransform(springValue, (latest) => `${Math.round(latest).toLocaleString()}${suffix}`);
+
+  useEffect(() => {
+    motionValue.set(Number.isFinite(value) ? value : 0);
+  }, [motionValue, value]);
+
+  return <motion.span>{rounded}</motion.span>;
+};
+
+const GitHubSection = () => {
+  const currentYear = new Date().getFullYear();
+  const [profile, setProfile] = useState(null);
+  const [repos, setRepos] = useState([]);
+  const [pullRequests, setPullRequests] = useState(0);
+  const [contributionStats, setContributionStats] = useState({ total: 0, longestStreak: 0 });
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const calculateLongestStreak = (items) => {
+      const activeDays = items
+        .filter((day) => day.count > 0)
+        .map((day) => day.date)
+        .sort();
+
+      let longest = 0;
+      let current = 0;
+      let previousDate = null;
+
+      activeDays.forEach((dateString) => {
+        const currentDate = new Date(`${dateString}T00:00:00`);
+        const diffInDays = previousDate
+          ? Math.round((currentDate - previousDate) / (1000 * 60 * 60 * 24))
+          : 1;
+
+        current = diffInDays === 1 ? current + 1 : 1;
+        longest = Math.max(longest, current);
+        previousDate = currentDate;
+      });
+
+      return longest;
+    };
+
+    const loadGitHubData = async () => {
+      try {
+        const [profileResponse, reposResponse, prResponse, contributionResponse] = await Promise.all([
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}`),
+          fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`),
+          fetch(`https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:pr`),
+          fetch(`https://github-contributions-api.jogruber.de/v4/${GITHUB_USERNAME}?y=${currentYear}`)
+        ]);
+
+        if (!profileResponse.ok || !reposResponse.ok) {
+          throw new Error("GitHub API rate limit or network error");
+        }
+
+        const profileData = await profileResponse.json();
+        const reposData = await reposResponse.json();
+        const prData = prResponse.ok ? await prResponse.json() : { total_count: 0 };
+        const contributionData = contributionResponse.ok ? await contributionResponse.json() : null;
+        const contributions = contributionData?.contributions || [];
+
+        if (isMounted) {
+          setProfile(profileData);
+          setRepos(reposData);
+          setPullRequests(prData.total_count || 0);
+          setContributionStats({
+            total: contributions.reduce((sum, day) => sum + day.count, 0),
+            longestStreak: calculateLongestStreak(contributions)
+          });
+          setHasError(false);
+        }
+      } catch {
+        if (isMounted) {
+          setHasError(true);
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadGitHubData();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentYear]);
+
+  const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
+  const statCards = [
+    { title: "Public Repositories", value: profile?.public_repos || 0, icon: BookOpen },
+    { title: "Total Stars", value: totalStars, icon: Star },
+    { title: `Total Contributions (${currentYear})`, value: contributionStats.total, icon: CalendarDays },
+    { title: "Longest Contribution Streak", value: contributionStats.longestStreak, icon: Flame },
+    { title: "Total Pull Requests", value: pullRequests, icon: GitPullRequest },
+    { title: "Followers", value: profile?.followers || 0, icon: Users }
+  ];
+
+  return (
+    <section id="github" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mb-12"
+        >
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">GitHub</h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
+            A snapshot of my open-source journey and coding consistency.
+          </p>
+        </motion.div>
+
+        {hasError && (
+          <div className="mb-8 rounded-2xl border border-amber-300/50 bg-amber-50 dark:bg-amber-500/10 p-4 text-sm text-amber-700 dark:text-amber-200">
+            GitHub data is temporarily unavailable, likely because of API rate limits. The section will refresh automatically on reload.
+          </div>
+        )}
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {statCards.map((card) => {
+            const Icon = card.icon;
+            return (
+              <motion.div
+                key={card.title}
+                variants={fadeInUp}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 shadow-md transition-colors"
+              >
+                <div className="flex items-center justify-between gap-4">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Icon size={22} aria-hidden="true" />
+                  </span>
+                  {isLoading && <span className="h-2 w-16 rounded-full bg-slate-200 dark:bg-slate-700 animate-pulse" />}
+                </div>
+                <p className="mt-5 text-sm font-medium text-slate-500 dark:text-slate-400">{card.title}</p>
+                <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">
+                  <AnimatedNumber value={isLoading ? 0 : card.value} />
+                </p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-8">
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 shadow-md overflow-hidden"
+          >
+            <div className="mb-5 flex items-center justify-between gap-3">
+              <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Contribution Calendar</h3>
+              <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-medium text-primary">{currentYear}</span>
+            </div>
+            <div className="overflow-x-auto rounded-xl bg-slate-950 p-4">
+              <Suspense fallback={<div className="h-40 rounded-xl bg-slate-800 animate-pulse" aria-label="Loading GitHub contribution calendar" />}>
+                <GitHubCalendar
+                  username={GITHUB_USERNAME}
+                  year={currentYear}
+                  colorScheme="dark"
+                  blockSize={12}
+                  blockMargin={4}
+                  fontSize={12}
+                  hideColorLegend={false}
+                  labels={{ totalCount: "{{count}} contributions in {{year}}" }}
+                />
+              </Suspense>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-6 shadow-md"
+          >
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Most Used Languages</h3>
+            <div className="mt-6 space-y-5">
+              {LANGUAGE_STATS.map((language, index) => (
+                <motion.div key={language.name} variants={fadeInUp}>
+                  <div className="mb-2 flex items-center justify-between gap-3 text-sm">
+                    <span className="flex items-center gap-2 font-medium text-slate-700 dark:text-slate-200">
+                      <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: language.color }}></span>
+                      {language.name}
+                    </span>
+                    <span className="text-slate-500 dark:text-slate-400">{language.percentage}%</span>
+                  </div>
+                  <div className="h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ backgroundColor: language.color }}
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${language.percentage}%` }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.8, delay: index * 0.08, ease: "easeOut" }}
+                    />
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={staggerContainer}
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+        >
+          {GITHUB_ACHIEVEMENTS.map((achievement) => {
+            const Icon = achievement.icon;
+            return (
+              <motion.div
+                key={achievement.name}
+                variants={fadeInUp}
+                whileHover={{ y: -5 }}
+                className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 p-5 shadow-md"
+              >
+                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Icon size={22} aria-hidden="true" />
+                </span>
+                <h4 className="mt-4 font-semibold text-slate-900 dark:text-white">{achievement.name}</h4>
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">{achievement.detail}</p>
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        <div className="mt-12 text-center">
+          <motion.a
+            href={GITHUB_PROFILE_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View Pratik Chandra Das GitHub profile"
+            whileHover={{ scale: 1.04 }}
+            whileTap={{ scale: 0.98 }}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-white hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20"
+          >
+            <Github size={20} aria-hidden="true" />
+            View GitHub Profile
+          </motion.a>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 const Experience = () => {
   return (
     <section id="experience" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
@@ -1528,6 +1865,87 @@ const Education = () => {
   );
 };
 
+const Certifications = () => {
+  return (
+    <section id="certifications" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
+      <div className="max-w-6xl mx-auto px-6">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="mb-12"
+        >
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4 transition-colors">Certifications</h2>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl">
+            Professional certifications and continuous learning.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {CERTIFICATIONS.map((certificate, index) => (
+            <motion.article
+              key={certificate.title}
+              variants={fadeInUp}
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ duration: 0.35, delay: index * 0.08 }}
+              className="group relative overflow-hidden rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/60 p-[1px] shadow-md backdrop-blur"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/45 via-transparent to-emerald-400/30 opacity-60 transition-opacity group-hover:opacity-100"></div>
+              <div className="relative h-full rounded-2xl bg-white/95 dark:bg-slate-950/90 p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+                    <span className="text-sm font-bold" aria-hidden="true">{certificate.logoText}</span>
+                  </span>
+                  <span className="rounded-full border border-primary/25 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                    {certificate.date}
+                  </span>
+                </div>
+
+                <h3 className="mt-6 text-xl font-semibold text-slate-900 dark:text-white">{certificate.title}</h3>
+                <p className="mt-2 text-sm font-medium text-slate-600 dark:text-slate-300">{certificate.issuer}</p>
+
+                {certificate.credentialId && (
+                  <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">Credential ID: {certificate.credentialId}</p>
+                )}
+
+                <div className="mt-5 flex flex-wrap gap-2" aria-label={`Skills learned in ${certificate.title}`}>
+                  {certificate.skills.map((skill) => (
+                    <span
+                      key={skill}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3 py-1 text-xs font-medium text-slate-600 dark:text-slate-300"
+                    >
+                      <BadgeCheck size={13} className="text-primary" aria-hidden="true" />
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+
+                <a
+                  href={certificate.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Verify ${certificate.title} certificate`}
+                  className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+                >
+                  Verify Certificate
+                  <ExternalLink size={16} aria-hidden="true" />
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
 const Contact = ({ showToast }) => {
   const form = useRef();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -1620,44 +2038,6 @@ const Contact = ({ showToast }) => {
             </form>
           </div>
 
-          <div className="mt-16 flex justify-center gap-8">
-            <motion.a
-              href="https://github.com/pratikdas018"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-              whileHover={{ y: -4, scale: 1.14 }}
-              whileTap={{ scale: 0.96 }}
-              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
-            >
-              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
-              <Github size={24} />
-            </motion.a>
-            <motion.a
-              href="https://www.linkedin.com/in/pratik018"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="LinkedIn"
-              whileHover={{ y: -4, scale: 1.14 }}
-              whileTap={{ scale: 0.96 }}
-              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
-            >
-              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
-              <Linkedin size={24} />
-            </motion.a>
-            <motion.a
-              href={GMAIL_COMPOSE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Email Pratik"
-              whileHover={{ y: -4, scale: 1.14 }}
-              whileTap={{ scale: 0.96 }}
-              className="group relative text-slate-500 dark:text-slate-400 hover:text-primary transition-colors"
-            >
-              <span className="absolute inset-0 -z-10 scale-0 rounded-full bg-primary/15 blur-md transition-transform duration-300 group-hover:scale-150"></span>
-              <Mail size={24} />
-            </motion.a>
-          </div>
         </motion.div>
       </div>
     </section>
@@ -1678,11 +2058,66 @@ const Toast = ({ message, type, onClose }) => (
   </motion.div>
 );
 
-const Footer = () => (
-  <footer className="py-8 bg-white dark:bg-dark text-center text-slate-500 dark:text-slate-600 text-sm transition-colors">
-    <p>Designed & Built by Pratik Chandra Das</p>
-  </footer>
-);
+const Footer = () => {
+  const footerSocials = [
+    { label: "GitHub", href: GITHUB_PROFILE_URL, icon: FaGithub },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/pratik018", icon: FaLinkedinIn },
+    { label: "Email Pratik", href: GMAIL_COMPOSE_URL, icon: MdEmail }
+  ];
+
+  return (
+    <footer className="bg-white dark:bg-dark transition-colors">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent" aria-hidden="true"></div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          className="grid items-center gap-3 py-5 text-center md:grid-cols-3 md:grid-rows-[auto_auto] md:text-left"
+        >
+          <div className="flex items-center justify-center gap-3 md:col-start-2 md:row-start-1">
+            {footerSocials.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <motion.a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.label}
+                  whileHover={{ y: -4, scale: 1.08 }}
+                  whileTap={{ scale: 0.94 }}
+                  className="group inline-flex h-10 w-10 cursor-pointer items-center justify-center rounded-full border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 transition-all duration-300 hover:border-primary hover:bg-primary hover:text-white hover:shadow-[0_12px_30px_-14px_rgba(59,130,246,0.9)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-dark"
+                >
+                  <Icon size={19} aria-hidden="true" />
+                </motion.a>
+              );
+            })}
+          </div>
+
+          <p className="text-base font-semibold leading-snug text-slate-800 dark:text-slate-100 md:col-start-2 md:row-start-2 md:text-center">
+            Designed &amp; Developed by
+            <span className="block text-xl font-bold text-primary sm:text-2xl">
+              Pratik
+            </span>
+          </p>
+
+          <p className="text-sm text-slate-500 dark:text-slate-500 md:col-start-1 md:row-span-2 md:row-start-1 md:justify-self-start">
+            "Turning ideas into code since 2022."
+          </p>
+
+          <p className="text-xs leading-relaxed text-slate-500 dark:text-slate-600 sm:text-sm md:col-start-3 md:row-span-2 md:row-start-1 md:justify-self-end md:text-right">
+            © 2026 Pratik Chandra Das.
+            <span className="block">All Rights Reserved.</span>
+          </p>
+        </motion.div>
+      </div>
+    </footer>
+  );
+};
 
 function App() {
   const [theme, setTheme] = useState(() => {
@@ -1744,10 +2179,15 @@ function App() {
           <Experience />
           <Skills />
           <Projects />
+          <GitHubSection />
           <Education />
+          <Certifications />
           <Contact showToast={showToast} />
         </main>
         <Footer />
+        <Suspense fallback={null}>
+          <PortfolioAssistant />
+        </Suspense>
 
         <AnimatePresence>
           {toast.show && (

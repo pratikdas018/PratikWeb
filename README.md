@@ -1,119 +1,89 @@
-#  Pratik Das | MERN Stack Developer Portfolio
+# Pratik Chandra Das Portfolio
 
-Welcome to my personal portfolio website! This project showcases my skills, experience, and projects as a **MERN Stack / Full-Stack Web Developer**, built with a clean UI and modern web technologies.
+Modern React portfolio for Pratik Chandra Das, integrated with a lazy-loaded AI Portfolio Assistant. The assistant UI calls a separate Express RAG backend and never communicates directly with OpenAI.
 
----
+## Frontend Stack
 
-##  About Me
+- React 19
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Lucide React
+- EmailJS
+- React Markdown
 
-I am **Pratik Das**, a passionate **MERN Stack Developer** focused on building **secure, scalable, and high-performance web applications**. I enjoy solving real-world problems through clean code, thoughtful architecture, and continuous learning.
+## AI Assistant
 
----
+The chatbot is mounted in `src/components/PortfolioAssistant.jsx` and uses `src/services/portfolioAssistantApi.js` for streamed API calls.
 
-##  Tech Stack
+Frontend responsibilities:
 
-**Frontend:**
+- Floating chatbot button
+- Responsive chat panel
+- Suggested questions
+- Streaming response rendering
+- Markdown rendering
+- Copy button
+- Clear chat
+- Conversation history in local storage
+- Source references
+- Project cards
+- Dark and light mode styling aligned with the existing portfolio
 
-* React.js
-* Tailwind CSS
-* JavaScript (ES6+)
-* Framer Motion
+Backend responsibilities live in the separate sibling project:
 
-**Backend:**
-
-* Node.js
-* Express.js
-* MongoDB
-* REST APIs
-* JWT Authentication
-
-**Tools & Platforms:**
-
-* Git & GitHub
-* Vite
-* Vercel / Render
-* EmailJS
-
----
-
-##  Features
-
-* Responsive and modern UI
-* Dark / Light mode support
-* About, Skills, Experience, Projects, and Contact sections
-* Secure contact form integration
-* Resume download option
-* Smooth animations and transitions
-* SEO-friendly structure
-
----
-
-##  Featured Projects
-
-###  Learning Management System (LMS)
-
-* Secure authentication with role-based access (Student / Teacher / Admin)
-* Course enrollment and progress tracking
-* Task & quiz management with deadlines
-* Automatic certificate generation after course completion
-* Admin dashboard for monitoring activity
-
-🔗 **Live:** [https://codelms-net.vercel.app/](https://codelms-net.vercel.app/)
-🔗 **GitHub:** [https://github.com/pratikdas018/LMS](https://github.com/pratikdas018/LMS)
-
----
-
-### 💬 Real-Time Chat Application
-
-* One-to-one real-time messaging using WebSockets
-* User authentication and authorization
-* Image sharing and emoji support
-* Responsive UI for all devices
-
----
-
-## 📸 Preview
-
-> Screenshots and demo videos can be added here.
-
----
-
-## 🚀 Getting Started
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/your-username/your-portfolio-repo.git
+```text
+../portfolio-assistant-backend
 ```
 
-### 2️⃣ Install Dependencies
+## Local Setup
+
+Frontend:
 
 ```bash
 npm install
-```
-
-### 3️⃣ Run the Development Server
-
-```bash
+cp .env.example .env
 npm run dev
 ```
 
-Open `http://localhost:5173` in your browser.
+Backend:
 
----
+```bash
+cd ../portfolio-assistant-backend
+npm install
+cp .env.example .env
+docker compose up -d
+npm run ingest
+npm run dev
+```
 
-##  Contact Me
+Open `http://localhost:5173`.
 
-* **Email:** [developedwithpratik@gmail.com](mailto:developedwithpratik@gmail.com)
-* **LinkedIn:** [https://www.linkedin.com/in/pratik018](https://www.linkedin.com/in/pratik018)
-* **GitHub:** [https://github.com/pratikdas018](https://github.com/pratikdas018)
+## Environment Variables
 
----
+Frontend:
 
-##  License
+```text
+VITE_CHAT_API_URL=http://localhost:8080/api
+```
 
-This project is open-source and available for learning and personal use.
+Backend variables are documented in `../portfolio-assistant-backend/README.md`.
 
----
+## Deployment
 
- If you like this portfolio, feel free to fork it or give it a star!
+Vercel frontend:
+
+1. Deploy this React project to Vercel.
+2. Set `VITE_CHAT_API_URL` to the Railway backend API URL.
+
+Railway backend:
+
+1. Deploy `../portfolio-assistant-backend`.
+2. Configure OpenAI and Qdrant environment variables.
+3. Run ingestion whenever the markdown knowledge base changes.
+
+## Contact
+
+- Email: developedwithpratik@gmail.com
+- LinkedIn: https://www.linkedin.com/in/pratik018
+- GitHub: https://github.com/pratikdas018
