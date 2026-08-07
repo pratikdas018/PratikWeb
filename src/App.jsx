@@ -166,6 +166,34 @@ const PROJECTS = [
   },
 
   {
+  title: "Drop Day - Flash-Sale Storefront with Live Inventory Contention",
+  description: "A realistic flash-sale storefront for limited-stock product drops that simulates real-world inventory constraints — timed releases, 60-second reservation holds, stock contention between competing shoppers, and graceful failure handling — all enforced by a server-authoritative engine.",
+  tech: ["Next.js 14", "React", "TypeScript", "Zustand", "Tailwind CSS", "Route Handlers", "pnpm"],
+  link: "https://dropday-live.vercel.app",
+  github: "https://github.com/pratikdas018/DropDay",
+  image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop",
+  caseStudy: {
+    challenge: "High-demand commerce platforms must manage contested, time-based state under pressure: products releasing on schedule, temporary reservations that expire, multiple shoppers racing for the same limited stock, and failures like holds lapsing mid-checkout — all without ever showing the user a stale or dishonest view of inventory.",
+    approach: "Built a storefront around a single server-side source of truth: an in-memory engine, exposed through real Next.js Route Handlers behind one clean API boundary. Hold expiry, stock contention from simulated shoppers, and a server-authoritative clock are all enforced server-side, while a Zustand store reconciles the UI against the server via polling, drift correction, and cross-tab sync. The mock API deliberately injects latency and transient failures to force robust unhappy-path handling.",
+    impact: "Delivered a polished, responsive storefront that stays truthful under contested, real-time conditions — holds never silently disappear, expired reservations reconcile gracefully, and mid-checkout failures are explained cleanly. The clean API boundary means the mock backend could be swapped for a real server without touching the UI.",
+    highlights: [
+      "Server-authoritative engine as the single source of truth for all time-based, contested state",
+      "60-second reservation holds with per-item live countdowns, enforced server-side via a lazy expiry sweep",
+      "Server-synced clock with drift correction so countdowns stay accurate regardless of device time",
+      "Wait-for-server hold placement to prevent lying about contested inventory; optimistic release for responsiveness",
+      "Simulated competing shoppers that consume live stock over time, creating genuine scarcity",
+      "Clean unhappy-path handling: hold expiry, out-of-stock, and mid-checkout failure all explained gracefully",
+      "Hype Meter wildcard — live watcher counts that drift over time and drive urgency styling",
+      "Panic Mode wildcard — urgent visual state in a hold's final 10 seconds, respecting reduced-motion",
+      "Second-Chance Queue wildcard — FIFO waitlist granting sold-out stock an exclusive 15-second claim window",
+      "Cross-tab synchronization via localStorage so multiple tabs converge on the same server truth",
+      "Single clean API boundary designed to be swappable for a real backend untouched",
+      "TypeScript throughout, with required loading, error, and empty states across the storefront"
+    ]
+  }
+},
+
+  {
     title: "CineCircle - Movie Gossip & Social Platform",
     description: "A social platform for movie enthusiasts to post reviews, comment on films, and stay updated with movie gossip. Features include real-time chat, friend management, and a social feed to track friends' activities.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Socket.io"],
