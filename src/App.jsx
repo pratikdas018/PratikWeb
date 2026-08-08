@@ -513,14 +513,27 @@ const Navbar = ({ theme, toggleTheme }) => {
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
-    const element = document.querySelector(href);
-    if (element) {
-      const offset = 80;
+    setIsOpen(false);
+
+    const scrollToSection = () => {
+      const sectionId = href.replace('#', '');
+      const element = document.getElementById(sectionId);
+
+      if (!element) {
+        return;
+      }
+
+      const offset = window.innerWidth < 768 ? 72 : 88;
       const elementPosition = element.getBoundingClientRect().top + window.scrollY;
       const offsetPosition = elementPosition - offset;
       window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-    }
-    setIsOpen(false);
+      setActiveSection(sectionId);
+      window.history.replaceState(null, '', href);
+    };
+
+    window.requestAnimationFrame(() => {
+      window.setTimeout(scrollToSection, isOpen ? 180 : 0);
+    });
   };
 
   return (
@@ -700,8 +713,19 @@ const ParticleBackground = () => {
   const canvasRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+
+    if (prefersReducedMotion || coarsePointer || window.innerWidth < 768) {
+      return;
+    }
+
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      return;
+    }
+
     let animationFrameId;
     let particles = [];
 
@@ -1506,14 +1530,42 @@ const AnimatedNumber = ({ value, suffix = "" }) => {
 
 const GitHubSection = () => {
   const currentYear = new Date().getFullYear();
+  const sectionRef = useRef(null);
   const [profile, setProfile] = useState(null);
   const [repos, setRepos] = useState([]);
   const [pullRequests, setPullRequests] = useState(0);
   const [contributionStats, setContributionStats] = useState({ total: 0, longestStreak: 0 });
   const [isLoading, setIsLoading] = useState(true);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
+    const element = sectionRef.current;
+
+    if (!element) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '500px 0px' }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!shouldLoad) {
+      return;
+    }
+
     let isMounted = true;
 
     const calculateLongestStreak = (items) => {
@@ -1585,7 +1637,7 @@ const GitHubSection = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentYear]);
+  }, [currentYear, shouldLoad]);
 
   const totalStars = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
   const statCards = [
@@ -1598,7 +1650,7 @@ const GitHubSection = () => {
   ];
 
   return (
-    <section id="github" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
+    <section ref={sectionRef} id="github" className="py-12 bg-slate-50 dark:bg-slate-900/50 transition-colors">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           initial="hidden"

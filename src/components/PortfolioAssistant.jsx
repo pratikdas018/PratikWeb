@@ -166,10 +166,14 @@ const PortfolioAssistant = () => {
   }, [messages]);
 
   useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
     fetchSuggestions()
-      .then(setSuggestions)
+      .then((items) => setSuggestions(items.length ? items : fallbackSuggestions))
       .catch(() => setSuggestions(fallbackSuggestions));
-  }, []);
+  }, [isOpen]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
