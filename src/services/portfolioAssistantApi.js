@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_CHAT_API_URL || '';
+const API_BASE_URL = import.meta.env.VITE_CHAT_API_URL || 'http://localhost:8080/api';
 
 const parseSsePayload = (line) => {
   if (!line.startsWith('data: ')) {
@@ -33,10 +33,6 @@ const handleSseEvent = (rawEvent, handlers) => {
 };
 
 export const fetchSuggestions = async () => {
-  if (!API_BASE_URL) {
-    return [];
-  }
-
   const response = await fetch(`${API_BASE_URL}/suggestions`);
 
   if (!response.ok) {
@@ -48,10 +44,6 @@ export const fetchSuggestions = async () => {
 };
 
 export const streamPortfolioChat = async ({ message, history, onDelta, onMetadata, onDone, onError, signal }) => {
-  if (!API_BASE_URL) {
-    throw new Error('Portfolio assistant API is not configured');
-  }
-
   const response = await fetch(`${API_BASE_URL}/chat`, {
     method: 'POST',
     headers: {

@@ -81,7 +81,7 @@ const CERTIFICATIONS = [
     credentialId: "",
     logoText: "EG",
     skills: ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "MongoDB"],
-    link: "https://drive.google.com/file/d/1oZjcWIm1n4siJIHCCMGYYaTQ2lAji1BS/view?usp=drive_link"
+    link: "https://drive.google.com/file/d/18zfoSugOMfJggfhAv5QmwmRH7r7rTQ6V/view?usp=drive_link"
   },
   {
     title: "Zero Trust Cloud Security Virtual Internship",
@@ -90,7 +90,7 @@ const CERTIFICATIONS = [
     credentialId: "",
     logoText: "ZS",
     skills: ["Zero Trust", "Cloud Security", "Networking", "Cyber Security"],
-    link: "https://drive.google.com/file/d/18zfoSugOMfJggfhAv5QmwmRH7r7rTQ6V/view?usp=drive_link"
+    link: "https://drive.google.com/file/d/1L807-us8YR_spDFD1fpHJdTLpqvIT_Sd/view?usp=drive_link"
   },
   {
     title: "AI-ML Virtual Internship",
@@ -99,7 +99,7 @@ const CERTIFICATIONS = [
     credentialId: "",
     logoText: "AWS",
     skills: ["Artificial Intelligence", "Machine Learning", "AWS", "Python"],
-    link: "https://drive.google.com/file/d/1L807-us8YR_spDFD1fpHJdTLpqvIT_Sd/view?usp=drive_link"
+    link: "https://drive.google.com/file/d/1oZjcWIm1n4siJIHCCMGYYaTQ2lAji1BS/view?usp=drive_link"
   }
 ];
 

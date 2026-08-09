@@ -238,12 +238,21 @@ const PortfolioAssistant = () => {
           )));
         },
         onError: (message) => {
-          setError(message);
+          setMessages((current) => current.map((chatMessage) => (
+            chatMessage.id === assistantMessage.id
+              ? { ...chatMessage, content: message, isError: true }
+              : chatMessage
+          )));
         }
       });
     } catch (streamError) {
       if (streamError.name !== 'AbortError') {
-        setError('Unable to reach the portfolio assistant. Please try again later.');
+        const message = 'Unable to reach the portfolio assistant. Please try again later.';
+        setMessages((current) => current.map((chatMessage) => (
+          chatMessage.id === assistantMessage.id
+            ? { ...chatMessage, content: message, isError: true }
+            : chatMessage
+        )));
       }
     } finally {
       setIsStreaming(false);
@@ -345,6 +354,8 @@ const PortfolioAssistant = () => {
                       className={`max-w-[86%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
                         message.role === 'user'
                           ? 'bg-primary text-white'
+                          : message.isError
+                            ? 'border border-red-500/40 bg-red-950/30 text-red-200'
                           : 'border border-slate-200 bg-slate-50 text-slate-700 dark:border-slate-800 dark:bg-slate-900/80 dark:text-slate-200'
                       }`}
                     >
