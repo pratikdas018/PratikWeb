@@ -1,4 +1,4 @@
-const API_BASE_URL = import.meta.env.VITE_CHAT_API_URL || 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_CHAT_API_URL || '/api';
 
 const parseSsePayload = (line) => {
   if (!line.startsWith('data: ')) {
@@ -81,4 +81,23 @@ export const streamPortfolioChat = async ({ message, history, onDelta, onMetadat
   if (buffer.trim()) {
     handleSseEvent(buffer, handlers);
   }
+};
+
+export const transcribePortfolioVoice = async ({ audioBlob, signal }) => {
+  const response = await fetch(`${API_BASE_URL}/voice/transcribe`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': audioBlob.type || 'audio/webm'
+    },
+    body: audioBlob,
+    signal
+  });
+
+  const data = await response.json().catch(() => ({}));
+
+  if (!response.ok) {
+    throw new Error(data?.error?.message || 'Unable to transcribe voice');
+  }
+
+  return data.transcript || '';
 };

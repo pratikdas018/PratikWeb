@@ -1032,7 +1032,6 @@ const SKILL_ICON_MAP = {
   Git: { slug: "git", color: "F05032" },
   GitHub: { slug: "github", color: "FFFFFF" },
   Postman: { slug: "postman", color: "FF6C37" },
-  "VS Code": { slug: "visualstudiocode", color: "007ACC" },
   Firebase: { slug: "firebase", color: "FFCA28" },
   Vercel: { slug: "vercel", color: "FFFFFF" },
   Render: { slug: "render", color: "46E3B7" },
@@ -1044,6 +1043,7 @@ const FALLBACK_SKILL_ICONS = {
   "REST API": "api",
   "Auth Workflows": "auth",
   "API Debugging": "debug",
+  "VS Code": "code",
   SQL: "database"
 };
 
@@ -1846,7 +1846,7 @@ const Experience = () => {
                   <h3 className="experience-role text-lg font-semibold text-slate-900 dark:text-white">Next.js Developer Intern</h3>
                   <p className="experience-company text-sm text-slate-500 dark:text-slate-400">AIKING SOLUTIONS</p>
                 </div>
-                <p className="experience-date-pill mt-2 text-sm font-medium text-primary">Mar 2026 - Present</p>
+                <p className="experience-date-pill mt-2 text-sm font-medium text-primary">Apr 2025 – June 2026</p>
               </div>
               <p className="experience-summary mt-4 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                 Building the company website in Next.js and delivering a Chrome extension that automates job applications through intelligent form detection and auto-fill.
